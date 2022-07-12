@@ -1,0 +1,6 @@
+pip install -U git+https://github.com/Rapptz/discord-ext-menus
+
+pip install apscheduler
+pip install discord.py
+python 3.9.0
+vultr-cli
