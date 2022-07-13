@@ -45,5 +45,6 @@ jobs:
           script: |
             cd baby-yoda/
             ls
+            python3 launcher.py
             
             
