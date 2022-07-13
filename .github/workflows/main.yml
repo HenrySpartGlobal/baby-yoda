@@ -49,6 +49,6 @@ jobs:
         port: 22
         script: |
           whoami
-          cd /baby-yoda
-            
+          pwd
+          python3 baby-yoda/launcher.py
             
