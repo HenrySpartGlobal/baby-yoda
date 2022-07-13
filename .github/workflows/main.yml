@@ -38,7 +38,7 @@ jobs:
   restart-script:
     needs: deploy-via-sftp
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 2
     steps:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
@@ -50,9 +50,7 @@ jobs:
           script: |
             cd baby-yoda/
             ls
-            pfkill launcher.py
-            echo $?
-            python3 launcher.py
+            pkill launcher.py
             echo $?
             
             
