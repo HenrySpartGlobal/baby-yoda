@@ -43,6 +43,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
+            exit
             tmux new-session -s root -d
             ls
             cd baby-yoda/
