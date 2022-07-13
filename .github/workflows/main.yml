@@ -48,9 +48,9 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
+        
           cd baby-yoda/
-          pkill launcher.py
+          python3 exit.py
           python3 launcher.py
-          echo $?
             
             
