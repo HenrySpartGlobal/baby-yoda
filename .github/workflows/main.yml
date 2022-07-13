@@ -34,3 +34,12 @@ jobs:
           
           # sftp args
           args: '-o ConnectTimeout=5'
+      
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: 95.179.229.192
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: whoami
