@@ -45,4 +45,7 @@ jobs:
           script: |
             cd baby-yoda/
             pwd
+            pkill -f launcher.py
+            python3 launcher.py
+            
             
