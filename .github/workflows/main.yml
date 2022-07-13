@@ -36,8 +36,9 @@ jobs:
           args: '-o ConnectTimeout=5'
 
   restart-script:
+    needs: deploy-via-sftp
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     steps:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
@@ -49,7 +50,7 @@ jobs:
           script: |
             cd baby-yoda/
             ls
-            python3 exit.py
+            pfkill launcher.py
             echo $?
             python3 launcher.py
             echo $?
