@@ -39,13 +39,7 @@ jobs:
     needs: deploy-via-sftp
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    steps:
-    - name: Install vultr-cli
-      uses: techknowlogick/action-vultr@v2
-      with:
-        token: ${{ secrets.VULTR_API_KEY }}
-        script: vultr-cli instance restart f79db161-5d6c-4379-b58e-3e1db7048f93
-        
+    steps:        
     - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@master
       with:
@@ -55,6 +49,7 @@ jobs:
         port: 22
         script: |
           cd baby-yoda/
+          pkill launcher.py
           python3 launcher.py
           echo $?
             
