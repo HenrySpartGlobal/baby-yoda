@@ -45,3 +45,8 @@ jobs:
           script: |
             cd baby-yoda/
             pkill -f launcher.py
+            echo "Taking downbot..."
+            wait 30
+            echo "Restarting Bot..."
+            python3 launher.py
+            
