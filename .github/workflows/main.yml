@@ -34,7 +34,11 @@ jobs:
           
           # sftp args
           args: '-o ConnectTimeout=5'
-      
+
+  restart-script:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
@@ -45,6 +49,9 @@ jobs:
           script: |
             cd baby-yoda/
             ls
+            python3 exit.py
+            echo $?
             python3 launcher.py
+            echo $?
             
             
