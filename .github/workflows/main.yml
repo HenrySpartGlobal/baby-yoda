@@ -44,6 +44,6 @@ jobs:
           port: 22
           script: |
             cd baby-yoda/
-            python3 launcher.py
+            ls
             
             
