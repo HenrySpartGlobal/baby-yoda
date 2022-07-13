@@ -48,3 +48,4 @@ jobs:
             ls
             cd baby-yoda/
             pwd
+            python3 launcher.py
