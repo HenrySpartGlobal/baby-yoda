@@ -50,5 +50,6 @@ jobs:
         script: |
           whoami
           pwd
-          python3 baby-yoda/launcher.py
+          cd baby-yoda/
+          python3 launcher.py
             
