@@ -22,29 +22,32 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: 95.179.229.192
+          server: 45.77.57.28
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-          
+
           # will put all file under this path
           local_path: ./* # default is ./*
           # files will copy to under remote_path
           remote_path: /root/baby-yoda/
-          
+
           # sftp args
           args: '-o ConnectTimeout=5'
-      
-      - name: executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@master
-        with:
-          host: 95.179.229.192
-          username: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd baby-yoda/
-            python3 exit.py
-            python3 launcher.py
-            
-            
+
+  restart-script:
+    needs: deploy-via-sftp
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+    - name: executing remote ssh commands using ssh key
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          cd baby-yoda/
+          pkill -f launcher.py
+          python3 hello.py
+          echo $?
+        host: 45.77.57.28
+        user: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
