@@ -4,7 +4,7 @@ name: Deploy New Bot
 on:
   # Allows running this workflow manually from the Actions tab
   workflow_dispatch:
-  env:
+env:
     REPO_NAME: ${{ github.event.repository.name }}
 jobs:
   # This workflow contains a single job called "SFTP"
@@ -29,19 +29,19 @@ jobs:
           # sftp args
           args: '-o ConnectTimeout=5'
 
-    add-bot-token:
-        needs: deploy-via-sftp
-        runs-on: ubuntu-latest
-        timeout-minutes: 2
-        steps:
-        - name: executing remote ssh commands using ssh key
-          uses: fifsky/ssh-action@master
-          with:
-            command: |
-              cd baby-yoda/lib/bot
-              touch token.0
-              echo "{{ secrets.BOT_TOKEN }}" > token.0
-              echo $?
-            host: 192.248.157.214
-            user: root
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
+  add-bot-token:
+      needs: deploy-via-sftp
+      runs-on: ubuntu-latest
+      timeout-minutes: 2
+      steps:
+      - name: executing remote ssh commands using ssh key
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd baby-yoda/lib/bot
+            touch token.0
+            echo "{{ secrets.BOT_TOKEN }}" > token.0
+            echo $?
+          host: 192.248.157.214
+          user: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
