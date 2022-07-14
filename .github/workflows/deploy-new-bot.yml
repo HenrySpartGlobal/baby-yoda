@@ -33,6 +33,8 @@ jobs:
       needs: deploy-via-sftp
       runs-on: ubuntu-latest
       timeout-minutes: 2
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       steps:
       - name: executing remote ssh commands using ssh key
         uses: fifsky/ssh-action@master
@@ -40,7 +42,7 @@ jobs:
           command: |
             cd baby-yoda/lib/bot
             touch token.0
-            echo "{{ secrets.BOT_TOKEN }}" > token.0
+            echo $BOT_TOKEN > token.0
             echo $?
           host: 192.248.157.214
           user: root
