@@ -79,3 +79,53 @@ jobs:
         host: 192.248.157.214
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  create-systemctl-restart:
+      needs: create-systemctl-service
+      runs-on: ubuntu-latest
+      steps:
+      - name: creating systemctl restarter service
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            echo "[Unit]
+            Description=Baby Yoda Discord Bot restarter
+            After=multi-user.target
+            StartLimitInterval=10
+            StartLimitBurst=5
+
+            [Service]
+            Type=oneshot
+            ExecStart=/usr/bin/systemctl restart test.service
+
+            [Install]
+            WantedBy=multi-user.target" >> /etc/systemd/system/test-watcher.service
+
+            sudo systemctl enable test-watcher.service
+            sudo systemctl start test-watcher.service
+
+          host: 192.248.157.214
+          user: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  create-systemctl-watcher:
+        needs: create-systemctl-restart
+        runs-on: ubuntu-latest
+        steps:
+        - name: creating systemctl watcher service
+          uses: fifsky/ssh-action@master
+          with:
+            command: |
+              echo "[Path]
+              Unit=test-watcher.service
+              PathChanged=/root/baby-yoda
+
+              [Install]
+              WantedBy=multi-user.target" >> /etc/systemd/system/test-watcher.path
+
+              sudo systemctl enable test-watcher.path
+              sudo systemctl start test-watcher.path
+
+            host: 192.248.157.214
+            user: root
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
