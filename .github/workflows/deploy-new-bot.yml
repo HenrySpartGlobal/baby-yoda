@@ -48,3 +48,15 @@ jobs:
           host: 192.248.157.214
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+  
+  create-systemctl-service:
+          needs: add-bot-token
+          runs-on: ubuntu-latest
+          steps:
+          - name: creating systemctl service
+            uses: fifsky/ssh-action@master
+            with:
+              command: systemctl.sh
+              host: 192.248.157.214
+              user: root
+              key: ${{ secrets.SSH_PRIVATE_KEY }}
