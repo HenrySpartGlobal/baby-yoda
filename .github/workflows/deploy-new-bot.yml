@@ -50,13 +50,32 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
-          needs: add-bot-token
-          runs-on: ubuntu-latest
-          steps:
-          - name: creating systemctl service
-            uses: fifsky/ssh-action@master
-            with:
-              command: systemctl.sh
-              host: 192.248.157.214
-              user: root
-              key: ${{ secrets.SSH_PRIVATE_KEY }}
+    needs: add-bot-token
+    runs-on: ubuntu-latest
+    steps:
+    - name: creating systemctl service
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          echo "[Unit]
+          Description=Baby Yoda Discord Bot
+          After=multi-user.target
+
+          [Service]
+          Type=simple
+          ExecStart=/root/baby-yoda/launcher.py
+          User=root
+          WorkingDirectory=/root/baby-yoda/
+          Restart=on-failure
+
+          [Install]
+          WantedBy=multi-user.target" >> /etc/systemd/system/test.service
+
+          chmod +x /root/baby-yoda/launcher.py
+          sudo systemctl enable test.service
+          sudo systemctl daemon-reload
+          sudo systemctl start test.service
+              
+          host: 192.248.157.214
+          user: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
