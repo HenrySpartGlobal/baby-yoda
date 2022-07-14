@@ -46,7 +46,7 @@ jobs:
         command: |
           cd baby-yoda/
           pkill -f launcher.py
-          python3 hello.py
+          python3 launcher.py
           echo $?
         host: 192.248.157.214
         user: root
