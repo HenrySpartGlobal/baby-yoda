@@ -41,15 +41,14 @@ jobs:
     timeout-minutes: 2
     steps:        
     - name: executing remote ssh commands using ssh key
-      uses: appleboy/ssh-action@master
+      uses: fifsky/ssh-action@master
       with:
+        command: |
+          cd baby-yoda/
+          pkill -f launcher.py
+          python3 launcher.py
+          echo $?
         host: 45.77.57.28
-        username: root
+        user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-            cd baby-yoda/
-            python3 exit.py
-            python3 launcher.py
-            echo $?
             
