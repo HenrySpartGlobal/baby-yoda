@@ -26,12 +26,12 @@ jobs:
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-          
+
           # will put all file under this path
           local_path: ./* # default is ./*
           # files will copy to under remote_path
           remote_path: /root/baby-yoda/
-          
+
           # sftp args
           args: '-o ConnectTimeout=5'
 
@@ -39,7 +39,7 @@ jobs:
     needs: deploy-via-sftp
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    steps:        
+    steps:
     - name: executing remote ssh commands using ssh key
       uses: fifsky/ssh-action@master
       with:
@@ -51,4 +51,3 @@ jobs:
         host: 45.77.57.28
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-            

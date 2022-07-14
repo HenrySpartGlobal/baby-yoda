@@ -29,7 +29,7 @@ class Bot(BotBase):
         print("Baby Yoda has Disconnected")
 
     async def on_ready(self):
-        print("Baby Yoda has Disconnected")
+        print("Baby Yoda bot is ready")
         if not self.ready:
             self.ready = True
             print("Bot ready")
