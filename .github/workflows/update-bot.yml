@@ -22,7 +22,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: 45.77.57.28
+          server: 192.248.157.214
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -48,6 +48,6 @@ jobs:
           pkill -f launcher.py
           python3 hello.py
           echo $?
-        host: 45.77.57.28
+        host: 192.248.157.214
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
