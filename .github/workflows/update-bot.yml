@@ -1,4 +1,4 @@
-name: VULTR-CI-SFTP
+name: Update Bot
 
 # Controls when the action will run. 
 on:
