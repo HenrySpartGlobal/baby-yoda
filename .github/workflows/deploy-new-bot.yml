@@ -76,6 +76,6 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl start test.service
               
-          host: 192.248.157.214
-          user: root
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: 192.248.157.214
+        user: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
