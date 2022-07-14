@@ -34,19 +34,3 @@ jobs:
 
           # sftp args
           args: '-o ConnectTimeout=5'
-
-  restart-script:
-    needs: deploy-via-sftp
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    steps:
-    - name: executing remote ssh commands using ssh key
-      uses: fifsky/ssh-action@master
-      with:
-        command: |
-          cd baby-yoda/
-          python3 restart.sh
-          echo $?
-        host: 192.248.157.214
-        user: root
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
