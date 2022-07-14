@@ -42,6 +42,7 @@ jobs:
           command: |
             cd baby-yoda/lib/bot
             touch token.0
+            export $BOT_TOKEN
             echo $BOT_TOKEN > token.0
             echo $?
           host: 192.248.157.214
