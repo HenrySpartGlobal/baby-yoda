@@ -11,6 +11,7 @@ jobs:
   apply-terraform:
     runs-on: ubuntu-latest
     steps:
+    - run: echo ${{ env.TF_WORKING_DIR }}
     - uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.1.9
