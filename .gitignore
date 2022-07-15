@@ -6,3 +6,4 @@ lib/bot/token.0
 nohup.out
 
 *.tfvars
+terraform.tfvars
