@@ -75,10 +75,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
+#    env:
+#      REPO_NAME = ${{ env.REPO_NAME }}
     needs: add-bot-token
     runs-on: ubuntu-latest
-    env:
-        REPO_NAME = ${{ env.REPO_NAME }}
     steps:
     - name: creating systemctl service
       uses: fifsky/ssh-action@master
@@ -111,8 +111,8 @@ jobs:
   create-systemctl-restart:
       needs: create-systemctl-service
       runs-on: ubuntu-latest
-      env:
-        REPO_NAME = ${{ env.REPO_NAME }}
+#      env:
+#        REPO_NAME = ${{ env.REPO_NAME }}
       steps:
       - name: creating systemctl restart service
         uses: fifsky/ssh-action@master
@@ -142,8 +142,8 @@ jobs:
   create-systemctl-watcher:
         needs: create-systemctl-restart
         runs-on: ubuntu-latest
-        env:
-            REPO_NAME = ${{ env.REPO_NAME }}
+  #      env:
+  #          REPO_NAME = ${{ env.REPO_NAME }}
         steps:
         - name: creating systemctl watcher service
           uses: fifsky/ssh-action@master
