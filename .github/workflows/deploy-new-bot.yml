@@ -10,6 +10,9 @@ env:
 jobs:
   apply-terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.TF_WORKING_DIR }}
     steps:
     - run: echo ${{ env.TF_WORKING_DIR }}
     - uses: hashicorp/setup-terraform@v2
@@ -19,7 +22,7 @@ jobs:
         
     - name: Terraform plan
       id: plan
-      run: terraform plan -no-color
+      run: terraform plan
         
     - name: Terraform Output
       id: output
