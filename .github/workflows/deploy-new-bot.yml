@@ -12,12 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.TF_WORKING_DIR }}
+        working-directory: /terraform/test-bots
     steps:
     - uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.1.9
-        tf_actions_working_dir: ${{ env.TF_WORKING_DIR }}
         
     - name: Terraform plan
       id: plan
