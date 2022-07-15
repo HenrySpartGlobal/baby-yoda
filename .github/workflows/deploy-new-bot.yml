@@ -19,13 +19,13 @@ jobs:
       with:
         terraform_version: 1.1.9
         terraform_wrapper: false
+    - name: git
+      run: git config --global url."https://oauth2:${{ secrets.SSH_PRIVATE_KEY }}@github.com".insteadOf https://github.com
         
     - name: Terraform init
       id: init
       run: terraform init
-      env:
-        GIT_SSH_COMMAND: "echo '${{ secrets.SSH_PRIVATE_KEY }}' > id_rsa && ssh-keyscan github.com > known_hosts && chmod 600 id_rsa known_hosts && ssh -i ./id_rsa -o UserKnownHostsFile=./known_hosts"
-
+      
     - name: Terraform plan
       id: plan
       run: terraform plan
