@@ -20,6 +20,10 @@ jobs:
         terraform_version: 1.1.9
         terraform_wrapper: false
         
+    - name: Terraform init
+      id: init
+      run: terraform init
+        
     - name: Terraform plan
       id: plan
       run: terraform plan
