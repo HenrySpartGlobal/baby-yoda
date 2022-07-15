@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./terraform/test-bots
+        working-directory: /terraform/test-bots
     steps:
     - uses: hashicorp/setup-terraform@v2
       with:
