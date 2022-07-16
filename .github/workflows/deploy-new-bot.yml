@@ -26,6 +26,7 @@ jobs:
         aws-region: eu-west-1
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
+    - run: aws sts get-caller-identity
   apply-terraform:
     needs: assign-aws-creds
     runs-on: ubuntu-latest
