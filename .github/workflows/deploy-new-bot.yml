@@ -9,7 +9,7 @@ env:
     TF_WORKING_DIR: ./terraform/test-bots
 jobs:
   assign-aws-creds:
-    name: Assume HenryKoleoso Role
+    name: Assume Github Action Role
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -27,6 +27,7 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
   apply-terraform:
+    needs: assign-aws-creds
     runs-on: ubuntu-latest
     defaults:
       run:
