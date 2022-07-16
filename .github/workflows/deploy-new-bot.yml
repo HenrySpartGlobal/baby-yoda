@@ -40,16 +40,13 @@ jobs:
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
-    - name: Export var file
-      run: export TF_VAR_api_key= ${{ secrets.VULTR_API_KEY }}
-    
     - name: Terraform init
       id: init
       run: terraform init
 
     - name: Terraform plan
       id: plan
-      run: terraform plan
+      run: terraform plan -var api_key= ${{ secrets.VULTR_API_KEY }}
 
     - name: Terraform Output
       id: output
