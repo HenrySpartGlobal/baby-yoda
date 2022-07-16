@@ -31,8 +31,8 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
     - run: aws sts get-caller-identity
-        
-    - name: set up github auth
+
+    - name: terraform init
       uses: hashicorp/setup-terraform@v2
       with:
           terraform_version: 1.1.9
@@ -40,25 +40,18 @@ jobs:
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@master
+    - name: Terraform init
+      id: init
+      run: terraform init
+
+    - name: Install vultr-cli
+      uses: techknowlogick/action-vultr@v2
       with:
-        tf_actions_version: 1.1.9
-        tf_actions_subcommand: 'init'
-        tf_actions_working_dir: './terraform/test-bots'
-        tf_actions_comment: true
-      env:
-        TF_VAR_api_key: ${{ secrets.VULTR_API_KEY }}
-              
-    - name: 'Terraform Plan'
-      uses: hashicorp/terraform-github-actions@master
-      with:
-        tf_actions_version: 1.1.9
-        tf_actions_subcommand: 'plan'
-        tf_actions_working_dir: './terraform/test-bots'
-        tf_actions_comment: true
-      env:
-        TF_VAR_api_key: ${{ secrets.VULTR_API_KEY }}
+        token: ${{ secrets.VULTR_API_KEY }}
+
+    - name: Terraform plan
+      id: plan
+      run: terraform plan
 
     - name: Terraform Output
       id: output
