@@ -32,6 +32,11 @@ jobs:
         role-duration-seconds: 1200
     - run: aws sts get-caller-identity
     
+    - name: 'Terraform Init'
+      uses: hashicorp/terraform-github-actions@master
+      env:
+        TF_VAR_api_key: '${{ secrets.VULTR_API_KEY }}'
+        
     - name: terraform init
       uses: hashicorp/setup-terraform@v2
       with:
@@ -40,22 +45,26 @@ jobs:
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
-    - name: Terraform init
-      id: init
-      run: terraform init
-      
-    - name: Install vultr-cli
-      uses: techknowlogick/action-vultr@v2
+    - name: 'Terraform Init'
+      uses: hashicorp/terraform-github-actions@master
       with:
-        token: ${{ secrets.VULTR_API_KEY }}
+        tf_actions_version: 1.1.9
+        tf_actions_subcommand: 'init'
+        # tf_actions_working_dir: '.'
+      env:
+        TF_VAR_api_key: ${{ secrets.VULTR_API_KEY }}
+              
+    - name: 'Terraform Plan'
+      with:
+        tf_actions_version: 1.1.9
+        tf_actions_subcommand: 'plan'
+        # tf_actions_working_dir: '.'
         
-    - name: Terraform plan
-      id: plan
-      run: terraform plan
-      
-    - name: Terraform Output
-      id: output
-      run: terraform output -raw main_ip
+    - name: 'Terraform Output'
+      with:
+        tf_actions_version: 1.1.9
+        tf_actions_subcommand: 'out -raw main_ip'
+        # tf_actions_working_dir: '.'
 
   install-requirements:
     needs: assign-aws-creds
