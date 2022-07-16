@@ -46,7 +46,7 @@ jobs:
 
     - name: Terraform plan
       id: plan
-      run: terraform plan -var api_key= "${{ secrets.VULTR_API_KEY }}"
+      run: terraform plan -var api_key="${{ secrets.VULTR_API_KEY }}"
 
     - name: Terraform Output
       id: output
