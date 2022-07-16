@@ -11,6 +11,9 @@ jobs:
   assign-aws-creds:
     name: Assume Github Action Role
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform/test-bots
     permissions:
       id-token: write
       contents: read
@@ -27,21 +30,15 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
     - run: aws sts get-caller-identity
-  apply-terraform:
-    needs: assign-aws-creds
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./terraform/test-bots
-    steps:
-    - uses: hashicorp/setup-terraform@v2
-    - uses: actions/checkout@v2
+    
+    - name: terraform init
+      uses: hashicorp/setup-terraform@v2
       with:
-        terraform_version: 1.1.9
-        terraform_wrapper: false
+          terraform_version: 1.1.9
+          terraform_wrapper: false
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
-        
+    
     - name: Terraform init
       id: init
       run: terraform init
@@ -49,15 +46,13 @@ jobs:
     - name: Terraform plan
       id: plan
       run: terraform plan
-        
+      
     - name: Terraform Output
       id: output
       run: terraform output -raw main_ip
-    env:
-      MAIN_IP: terraform output -raw main_ip
 
   install-requirements:
-    needs: apply-terraform
+    needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
     - name: installing requirements for ${{ env.REPO_NAME }} bot
