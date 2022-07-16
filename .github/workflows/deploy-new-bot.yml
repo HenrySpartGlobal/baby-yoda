@@ -8,6 +8,24 @@ env:
     REPO_NAME: ${{ github.event.repository.name }}
     TF_WORKING_DIR: ./terraform/test-bots
 jobs:
+  assign-aws-creds:
+    name: Assume HenryKoleoso Role
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        role-duration-seconds: 1200
   apply-terraform:
     runs-on: ubuntu-latest
     defaults:
