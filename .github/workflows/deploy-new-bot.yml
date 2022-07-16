@@ -31,13 +31,8 @@ jobs:
         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-duration-seconds: 1200
     - run: aws sts get-caller-identity
-    
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@master
-      env:
-        TF_VAR_api_key: '${{ secrets.VULTR_API_KEY }}'
         
-    - name: terraform init
+    - name: set up github auth
       uses: hashicorp/setup-terraform@v2
       with:
           terraform_version: 1.1.9
@@ -45,14 +40,9 @@ jobs:
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@master
-      with:
-        tf_actions_version: 1.1.9
-        tf_actions_subcommand: 'init'
-        # tf_actions_working_dir: '.'
-      env:
-        TF_VAR_api_key: ${{ secrets.VULTR_API_KEY }}
+    - name: Terraform init
+      id: init
+      run: terraform init
               
     - name: Terraform plan
       id: plan
