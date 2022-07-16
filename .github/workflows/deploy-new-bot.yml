@@ -32,7 +32,7 @@ jobs:
         role-duration-seconds: 1200
     - run: aws sts get-caller-identity
 
-    - name: terraform init
+    - name: set up github auth
       uses: hashicorp/setup-terraform@v2
       with:
           terraform_version: 1.1.9
@@ -40,14 +40,12 @@ jobs:
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
+    - name: Export var file
+      run: export TF_VAR_api_key= ${{ secrets.VULTR_API_KEY }}
+    
     - name: Terraform init
       id: init
       run: terraform init
-
-    - name: Install vultr-cli
-      uses: techknowlogick/action-vultr@v2
-      with:
-        token: ${{ secrets.VULTR_API_KEY }}
 
     - name: Terraform plan
       id: plan
