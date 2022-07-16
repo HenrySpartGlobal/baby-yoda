@@ -55,7 +55,7 @@ jobs:
       
     - name: Output main ip
       id: output main ip
-      run: terraform output -json | jq -r '@sh "export MAIN_IP=\(.main_ip.value)"'
+      run: terraform output -json | jq -r '@sh "export MAINIP=\(.mainip.value)"'
 
   install-requirements:
     needs: assign-aws-creds
