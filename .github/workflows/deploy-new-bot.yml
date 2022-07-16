@@ -54,17 +54,13 @@ jobs:
       env:
         TF_VAR_api_key: ${{ secrets.VULTR_API_KEY }}
               
-    - name: 'Terraform Plan'
-      with:
-        tf_actions_version: 1.1.9
-        tf_actions_subcommand: 'plan'
-        # tf_actions_working_dir: '.'
-        
-    - name: 'Terraform Output'
-      with:
-        tf_actions_version: 1.1.9
-        tf_actions_subcommand: 'out -raw main_ip'
-        # tf_actions_working_dir: '.'
+    - name: Terraform plan
+      id: plan
+      run: terraform plan
+
+    - name: Terraform Output
+      id: output
+      run: terraform output -raw main_ip
 
   install-requirements:
     needs: assign-aws-creds
