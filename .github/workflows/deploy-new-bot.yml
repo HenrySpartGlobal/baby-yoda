@@ -64,7 +64,7 @@ jobs:
       run: echo "::set-output name=test::${{ env.MAIN_IP }}"
       
     - id: print-main-ip
-      run: echo "${{ env.MAIN_IP }}"
+      run: echo ${{ env.MAIN_IP }}
     
   install-requirements:
     needs: assign-aws-creds
@@ -88,7 +88,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: ${{needs.assign-aws-creds.outputs.main_ip}}
+        host: ${{needs.assign-aws-creds.outputs.output}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
