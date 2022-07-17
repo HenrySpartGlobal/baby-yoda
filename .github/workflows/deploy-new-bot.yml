@@ -21,7 +21,7 @@ jobs:
       contents: read
       
     outputs:
-      main_ip: ${{ steps.main-ip.outputs.test }}
+      mainIp: ${{ steps.mainIp.outputs.test }}
       
     steps:
     - name: Checkout
@@ -59,11 +59,11 @@ jobs:
          output=$(terraform output -raw main_ip)
          echo "::set-output name=test::$output"
       
-    - id: main-ip
+    - id: mainIp
       run: echo ${{ steps.output.outputs.stdout }}
       
-    - id: second-try
-      run: echo ${{needs.assign-aws-creds.outputs.main_ip}}
+    - id: secondTry
+      run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
     
   install-requirements:
     needs: assign-aws-creds
