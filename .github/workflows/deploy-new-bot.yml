@@ -63,10 +63,10 @@ jobs:
       # run: echo "::set-output name=test::$output"
       
     - id: print-main-ip
-      run: echo $output
+      run: echo " $output  number 1" 
       
     - id: print-main-ip-std
-      run: echo ${{ steps.output.outputs.stdout }}
+      run: echo " number 2 ${{ steps.output.outputs.stdout }} "
     
   install-requirements:
     needs: assign-aws-creds
