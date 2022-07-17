@@ -61,6 +61,9 @@ jobs:
       
     - id: main-ip
       run: echo ${{ steps.output.outputs.stdout }}
+      
+    - id: second-try
+      run: echo ${{needs.assign-aws-creds.outputs.main_ip}}
     
   install-requirements:
     needs: assign-aws-creds
@@ -71,7 +74,6 @@ jobs:
       with:
         command: |
           echo '###### Installing Git #######'
-          echo '${{needs.assign-aws-creds.outputs.main_ip}}'
           sudo apt-get install git -y
 
           echo '###### Installing pip ######'
