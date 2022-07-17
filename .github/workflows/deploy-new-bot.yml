@@ -100,7 +100,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: ${{ env.MAIN_IP }}
+          server:  ${{needs.assign-aws-creds.outputs.mainIp}}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -128,7 +128,7 @@ jobs:
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
-          host: ${{ env.MAIN_IP }}
+          host:  ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
@@ -144,7 +144,7 @@ jobs:
         command: |
           export ${{ env.REPO_NAME }}
           echo "[Unit]
-          Description=Baby Yoda Discord Bot
+          Description=${{ env.REPO_NAME }} Discord Bot
           After=multi-user.target
 
           [Service]
@@ -162,7 +162,7 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl start ${{ env.REPO_NAME }}.service
               
-        host: ${{ env.MAIN_IP }}
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -193,7 +193,7 @@ jobs:
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
 
-          host: ${{ env.MAIN_IP }}
+          host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -217,6 +217,6 @@ jobs:
               sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
               sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
 
-            host: ${{ env.MAIN_IP }}
+            host: ${{needs.assign-aws-creds.outputs.mainIp}}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY }}
