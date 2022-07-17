@@ -67,7 +67,6 @@ jobs:
     needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
     - name: installing requirements for ${{ env.REPO_NAME }} bot
       uses: fifsky/ssh-action@master
       with:
@@ -87,7 +86,7 @@ jobs:
           echo '###### Installing Discord.py ######'
           pip install discord.py
           
-        host: ${{needs.assign-aws-creds.outputs.main_ip}}
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
