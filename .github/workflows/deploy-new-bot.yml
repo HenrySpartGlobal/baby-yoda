@@ -56,6 +56,10 @@ jobs:
     - name: Output main ip
       run: terraform output -json | jq -r '@sh "export MAIN_IP=\(.main_ip.value)"'
       
+    - name: Terraform refresh
+      id: refresh
+      run: terraform refresh
+      
       env:
         MAIN_IP: terraform output -raw main_ip
 
