@@ -61,6 +61,28 @@ jobs:
       
     - id: ipAddress
       run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+      
+  install-requirements:
+    needs: assign-aws-creds
+    runs-on: ubuntu-latest
+    steps:
+    - name: installing requirements for ${{ env.REPO_NAME }} bot
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          echo '###### Installing Git #######'
+          sudo apt-get install git -y
+          echo '###### Installing pip ######'
+          sudo apt-get install python3-pip -y
+          echo '###### Installing Discord Ext Menus ######'
+          pip install -U git+https://github.com/Rapptz/discord-ext-menus
+          echo '###### Installing Ap Scheduler ######'
+          pip install apscheduler
+          echo '###### Installing Discord.py ######'
+          pip install discord.py
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
+        user: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   deploy-via-sftp:
     needs: assign-aws-creds
