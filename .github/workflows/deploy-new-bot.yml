@@ -88,6 +88,8 @@ jobs:
   deploy-via-sftp:
     needs: assign-aws-creds
     runs-on: ubuntu-latest
+    env:
+      IP: ${{needs.assign-aws-creds.outputs.mainIp}}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v2
@@ -95,7 +97,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: ${{needs.assign-aws-creds.outputs.mainIp2}}
+          server: $IP
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
