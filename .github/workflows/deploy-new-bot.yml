@@ -61,10 +61,10 @@ jobs:
         MAIN_IP: terraform output -raw main_ip
         
     - id: main_ip
-      run: echo "::set-output name=test:${{ secrets.VULTR_API_KEY }}"
+      run: echo "::set-output name=test:${{ env.REPO_NAME }}"
       
     - id: print-main-ip
-      run: echo ${{ secrets.VULTR_API_KEY }}
+      run: echo  ${{ env.REPO_NAME }}
     
   install-requirements:
     needs: assign-aws-creds
