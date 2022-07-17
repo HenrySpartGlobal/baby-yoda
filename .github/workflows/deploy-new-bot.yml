@@ -21,7 +21,7 @@ jobs:
       contents: read
       
     outputs:
-      main_ip: ${{ steps.output.outputs.test }}
+      main_ip: ${{ steps.main-ip.outputs.test }}
       
     steps:
     - name: Checkout
@@ -58,15 +58,9 @@ jobs:
       run: |
          output=$(terraform output -raw main_ip)
          echo "::set-output name=test::$output"
-   
-    # - id: main_ip
-      # run: echo "::set-output name=test::$output"
       
-    - id: print-main-ip
-      run: echo " $output  number 1" 
-      
-    - id: print-main-ip-std
-      run: echo " number 2 ${{ steps.output.outputs.stdout }} "
+    - id: main-ip
+      run: echo ${{ steps.output.outputs.stdout }}
     
   install-requirements:
     needs: assign-aws-creds
@@ -90,7 +84,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: ${{needs.assign-aws-creds.outputs.output}}
+        host: ${{needs.assign-aws-creds.outputs.main_ip}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
