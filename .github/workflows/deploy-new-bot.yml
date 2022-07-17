@@ -111,6 +111,8 @@ jobs:
 
           # sftp args
           args: '-o ConnectTimeout=5'
+      - id: running-ip
+        run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
 
   add-bot-token:
       needs: deploy-via-sftp
