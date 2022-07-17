@@ -60,14 +60,16 @@ jobs:
          echo "::set-output name=test::$output"
       
     - id: ipAddress
-      run: echo "::set-output name=address::hello}"
-     # run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+      run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+      
+       ${{needs.assign-aws-creds.outputs.main_ip}}
 
     
   install-requirements:
     needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
+    - run: echo ${{needs.assign-aws-creds.outputs.main_ip}}
     - name: installing requirements for ${{ env.REPO_NAME }} bot
       uses: fifsky/ssh-action@master
       with:
@@ -86,6 +88,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
+          
         host: ${{needs.assign-aws-creds.outputs.main_ip}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
