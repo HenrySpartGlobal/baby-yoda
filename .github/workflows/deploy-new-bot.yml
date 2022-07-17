@@ -81,7 +81,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: 192.248.157.214
+        host: ${{ env.MAIN_IP }}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
