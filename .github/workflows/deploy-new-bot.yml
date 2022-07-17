@@ -19,6 +19,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
+
+    outputs:
+      mainIp: ${{ steps.ipAddress.outputs.address }}
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -37,7 +41,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
           terraform_version: 1.1.9
-          terraform_wrapper: false
+          terraform_wrapper: true
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
@@ -51,10 +55,13 @@ jobs:
 
     - name: Terraform Output
       id: output
-      run: terraform output -raw main_ip
+      run: |
+         output=$(terraform output -raw main_ip)
+         echo "::set-output name=test::$output"
       
-    - name: Output main ip
-      run: terraform output -json | jq -r '@sh "export MAIN_IP=\(.main_ip.value)"'
+    - id: ipAddress
+      run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+
 
   install-requirements:
     needs: assign-aws-creds
@@ -78,7 +85,8 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: 192.248.157.214
+
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -92,7 +100,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: 192.248.157.214
+          server: ${{ env.MAIN_IP }}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -120,7 +128,7 @@ jobs:
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
-          host: 192.248.157.214
+          host: ${{ env.MAIN_IP }}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
@@ -154,7 +162,7 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl start ${{ env.REPO_NAME }}.service
               
-        host: 192.248.157.214
+        host: ${{ env.MAIN_IP }}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -185,7 +193,7 @@ jobs:
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
 
-          host: 192.248.157.214
+          host: ${{ env.MAIN_IP }}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -209,6 +217,6 @@ jobs:
               sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
               sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
 
-            host: 192.248.157.214
+            host: ${{ env.MAIN_IP }}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY }}
