@@ -55,13 +55,11 @@ jobs:
 
     - name: Terraform Output
       id: output
-      run: terraform output -raw main_ip
-      
-      env:
-        MAIN_IP: terraform output -raw main_ip
+      run: echo "::set-output name=test::terraform output -raw main_ip"
+      # run: terraform output -raw main_ip
         
-    - id: main_ip
-      run: echo "::set-output name=test::hello"
+     # - id: main_ip
+     #run: echo "::set-output name=test::hello"
     
   install-requirements:
     needs: assign-aws-creds
