@@ -21,7 +21,7 @@ jobs:
       contents: read
       
     outputs:
-      main_ip: ${{ steps.main_ip.outputs.test }}
+      main_ip: ${{ steps.output.outputs.test }}
       
     steps:
     - name: Checkout
