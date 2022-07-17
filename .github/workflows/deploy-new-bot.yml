@@ -73,28 +73,23 @@ jobs:
         command: |
           echo '###### Installing Git #######'
           sudo apt-get install git -y
-
           echo '###### Installing pip ######'
           sudo apt-get install python3-pip -y
-
           echo '###### Installing Discord Ext Menus ######'
           pip install -U git+https://github.com/Rapptz/discord-ext-menus
-
           echo '###### Installing Ap Scheduler ######'
           pip install apscheduler
-
           echo '###### Installing Discord.py ######'
           pip install discord.py
-
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   deploy-via-sftp:
-      needs: install-requirements
-      runs-on: ubuntu-latest
-      steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
+    needs: install-requirements
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v2
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
@@ -111,7 +106,6 @@ jobs:
 
           # sftp args
           args: '-o ConnectTimeout=5'
-      - id: running-ip
 
   add-bot-token:
       needs: deploy-via-sftp
@@ -145,17 +139,14 @@ jobs:
           echo "[Unit]
           Description=${{ env.REPO_NAME }} Discord Bot
           After=multi-user.target
-
           [Service]
           Type=simple
           ExecStart=/root/${{ env.REPO_NAME }}/launcher.py
           User=root
           WorkingDirectory=/root/${{ env.REPO_NAME }}/
           Restart=on-failure
-
           [Install]
           WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}.service
-
           chmod +x /root/${{ env.REPO_NAME }}/launcher.py
           sudo systemctl enable ${{ env.REPO_NAME }}.service
           sudo systemctl daemon-reload
@@ -179,17 +170,13 @@ jobs:
             After=multi-user.target
             StartLimitInterval=10
             StartLimitBurst=5
-
             [Service]
             Type=oneshot
             ExecStart=/usr/bin/systemctl restart ${{ env.REPO_NAME }}.service
-
             [Install]
             WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}-watcher.service
-
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
-
           host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -205,13 +192,10 @@ jobs:
               echo "[Path]
               Unit=${{ env.REPO_NAME }}-watcher.service
               PathChanged=/root/${{ env.REPO_NAME }}
-
               [Install]
               WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}-watcher.path
-
               sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
               sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
-
             host: ${{needs.assign-aws-creds.outputs.mainIp}}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY }}
