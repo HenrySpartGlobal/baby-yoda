@@ -8,7 +8,6 @@ env:
     REPO_NAME: ${{ github.event.repository.name }}
     TF_WORKING_DIR: ./terraform/test-bots
     VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
-    MAIN_IP: terraform output -raw main_ip
     
 jobs:
   assign-aws-creds:
@@ -59,13 +58,13 @@ jobs:
       run: terraform output -raw main_ip
       
       env:
-        MAIN_IP: terraform output -raw main_ip
+        ip: terraform output -raw main_ip
         
     - id: main_ip
-      run: echo "::set-output name=test:${{ env.MAIN_IP }}"
+      run: echo "::set-output name=test:$ip"
       
     - id: print-main-ip
-      run: echo  ${{ env.MAIN_IP }}
+      run: echo $ip
     
   install-requirements:
     needs: assign-aws-creds
