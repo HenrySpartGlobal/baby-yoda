@@ -100,7 +100,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server:  ${{needs.assign-aws-creds.outputs.mainIp}}
+          server: ${{needs.assign-aws-creds.outputs.mainIp}}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -128,13 +128,11 @@ jobs:
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
-          host:  ${{needs.assign-aws-creds.outputs.mainIp}}
+          host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
-#    env:
-#      REPO_NAME = ${{ env.REPO_NAME }}
     needs: add-bot-token
     runs-on: ubuntu-latest
     steps:
@@ -169,8 +167,6 @@ jobs:
   create-systemctl-restart:
       needs: create-systemctl-service
       runs-on: ubuntu-latest
-#      env:
-#        REPO_NAME = ${{ env.REPO_NAME }}
       steps:
       - name: creating systemctl restart service
         uses: fifsky/ssh-action@master
@@ -200,8 +196,6 @@ jobs:
   create-systemctl-watcher:
         needs: create-systemctl-restart
         runs-on: ubuntu-latest
-  #      env:
-  #          REPO_NAME = ${{ env.REPO_NAME }}
         steps:
         - name: creating systemctl watcher service
           uses: fifsky/ssh-action@master
