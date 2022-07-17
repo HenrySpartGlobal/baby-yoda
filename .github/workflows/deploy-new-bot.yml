@@ -60,7 +60,9 @@ jobs:
          echo "::set-output name=test::$output"
       
     - id: ipAddress
-      run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+      run: echo "::set-output name=address::hello}"
+     # run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+
     
   install-requirements:
     needs: assign-aws-creds
