@@ -41,7 +41,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
           terraform_version: 1.1.9
-          terraform_wrapper: false
+          terraform_wrapper: true
     - name: git
       run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
     
@@ -64,6 +64,9 @@ jobs:
       
     - id: print-main-ip
       run: echo $output
+      
+    # - id: print-main-ip-std
+     # run: echo ${{ steps.plan.outsputs. }}
     
   install-requirements:
     needs: assign-aws-creds
