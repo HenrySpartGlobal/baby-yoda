@@ -21,7 +21,7 @@ jobs:
       contents: read
       
     outputs:
-      mainIp: ${{ steps.output.outputs.test }}
+      mainIp: ${{ steps.ipAddress.outputs.address }}
       
     steps:
     - name: Checkout
@@ -60,7 +60,7 @@ jobs:
          echo "::set-output name=test::$output"
       
     - id: ipAddress
-      run: echo ${{ steps.output.outputs.stdout }}
+      run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
       
     - id: secondTry
       run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
