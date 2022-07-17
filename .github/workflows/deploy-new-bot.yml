@@ -61,9 +61,6 @@ jobs:
       
     - id: ipAddress
       run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
-      
-    - id: secondTry
-      run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
     
   install-requirements:
     needs: assign-aws-creds
