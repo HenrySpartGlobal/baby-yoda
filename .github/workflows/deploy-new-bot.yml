@@ -63,7 +63,7 @@ jobs:
     - id: main_ip
       run: echo "::set-output name=test::${{ env.MAIN_IP }}"
       
-    - id: print main ip in env var main_ip
+    - id: print-main-ip
       run: echo "${{ env.MAIN_IP }}"
     
   install-requirements:
