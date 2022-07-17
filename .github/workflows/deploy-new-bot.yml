@@ -63,7 +63,7 @@ jobs:
       run: echo ${{ steps.output.outputs.stdout }}
       
     - id: secondTry
-      run: echo ${{needs.assign-aws-creds.outputs.mainIp}}
+      run: echo ${{ needs.assign-aws-creds.outputs.mainIp }}
     
   install-requirements:
     needs: assign-aws-creds
