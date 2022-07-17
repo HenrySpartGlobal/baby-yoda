@@ -57,7 +57,7 @@ jobs:
       id: output
       run: |
          output=$(terraform output -raw main_ip)
-         echo "::set-output name=test::$output"
+         echo $output
    
     - id: main_ip
       run: echo "::set-output name=test::$output"
