@@ -56,10 +56,6 @@ jobs:
     - name: Output main ip
       run: terraform output -json | jq -r '@sh "export MAIN_IP=\(.main_ip.value)"'
       
-    - name: Terraform refresh
-      id: refresh
-      run: terraform refresh
-      
       env:
         MAIN_IP: terraform output -raw main_ip
 
@@ -99,7 +95,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: 192.248.157.214
+          server: ${{ env.MAIN_IP }}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -127,7 +123,7 @@ jobs:
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
-          host: 192.248.157.214
+          host: ${{ env.MAIN_IP }}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
@@ -161,7 +157,7 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl start ${{ env.REPO_NAME }}.service
               
-        host: 192.248.157.214
+        host: ${{ env.MAIN_IP }}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -192,7 +188,7 @@ jobs:
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
 
-          host: 192.248.157.214
+          host: ${{ env.MAIN_IP }}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -216,6 +212,6 @@ jobs:
               sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
               sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
 
-            host: 192.248.157.214
+            host: ${{ env.MAIN_IP }}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY }}
