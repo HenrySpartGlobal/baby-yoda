@@ -65,8 +65,8 @@ jobs:
     - id: print-main-ip
       run: echo $output
       
-    # - id: print-main-ip-std
-     # run: echo ${{ steps.plan.outsputs. }}
+    - id: print-main-ip-std
+      run: echo ${{ steps.plan.outsputs.stdout }}
     
   install-requirements:
     needs: assign-aws-creds
