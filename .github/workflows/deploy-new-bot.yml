@@ -55,11 +55,16 @@ jobs:
 
     - name: Terraform Output
       id: output
-      run: echo "::set-output name=test::terraform output -raw main_ip"
-      # run: terraform output -raw main_ip
+      run: terraform output -raw main_ip
+      
+      env:
+        MAIN_IP: terraform output -raw main_ip
         
-     # - id: main_ip
-     #run: echo "::set-output name=test::hello"
+    - id: main_ip
+      run: echo "::set-output name=test::${{ env.MAIN_IP }}"
+      
+    - id: print main ip in env var main_ip
+      run: echo "${{ env.MAIN_IP }}"
     
   install-requirements:
     needs: assign-aws-creds
@@ -83,7 +88,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: ${{ needs.assign-aws-creds.outputs.main_ip }}
+        host: ${{needs.assign-aws-creds.outputs.main_ip}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
