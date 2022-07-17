@@ -71,6 +71,7 @@ jobs:
       with:
         command: |
           echo '###### Installing Git #######'
+          echo '${{needs.assign-aws-creds.outputs.main_ip}}'
           sudo apt-get install git -y
 
           echo '###### Installing pip ######'
