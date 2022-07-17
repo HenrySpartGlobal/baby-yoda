@@ -19,6 +19,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      
+    outputs:
+      main_ip: ${{ steps.main_ip.outputs.test }}
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -53,12 +57,16 @@ jobs:
       id: output
       run: terraform output -raw main_ip
       
-    - name: Output main ip
-      run: terraform output -json | jq -r '@sh "export MAIN_IP=\(.main_ip.value)"'
-      
       env:
         MAIN_IP: terraform output -raw main_ip
-
+        
+    - id: main_ip
+      run: echo "::set-output name=test::${{ env.MAIN_IP }}"
+    
+  install-requirements:
+    needs: assign-aws-creds
+    runs-on: ubuntu-latest
+    steps:
     - name: installing requirements for ${{ env.REPO_NAME }} bot
       uses: fifsky/ssh-action@master
       with:
@@ -77,7 +85,7 @@ jobs:
 
           echo '###### Installing Discord.py ######'
           pip install discord.py
-        host: ${{ env.MAIN_IP }}
+        host: ${{ needs.assign-aws-creds.outputs.main_ip }}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
