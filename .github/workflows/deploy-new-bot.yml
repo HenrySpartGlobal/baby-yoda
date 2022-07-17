@@ -65,7 +65,7 @@ jobs:
       run: echo "::set-output name=test:$ip"
       
     - id: print-main-ip
-      run: echo $ip
+      run: echo "$ip"
     
   install-requirements:
     needs: assign-aws-creds
