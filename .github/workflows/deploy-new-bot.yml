@@ -22,7 +22,6 @@ jobs:
 
     outputs:
       mainIp: ${{ steps.ipAddress.outputs.address }}
-      mainIp2: ${{ steps.ipAddress.outputs.address }}
 
     steps:
     - name: Checkout
@@ -87,7 +86,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   deploy-via-sftp:
-    needs: install-requirements
+    needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
