@@ -58,7 +58,8 @@ jobs:
       run: terraform output -raw main_ip
       
       env:
-        ip: terraform output -raw main_ip
+          ip: hello
+        # ip: terraform output -raw main_ip
         
     - id: main_ip
       run: echo "::set-output name=test:$ip"
