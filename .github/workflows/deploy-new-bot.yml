@@ -107,7 +107,7 @@ jobs:
           args: '-o ConnectTimeout=5'
 
   add-bot-token:
-      needs: deploy-via-sftp
+      needs: [deploy-via-sftp, assign-aws-creds]
       runs-on: ubuntu-latest
       timeout-minutes: 2
       env:
@@ -127,7 +127,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
-    needs: add-bot-token
+    needs: [add-bot-token,deploy-via-sftp, assign-aws-creds]
     runs-on: ubuntu-latest
     steps:
     - id: creating-systemctl-service
@@ -156,7 +156,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   create-systemctl-restart:
-      needs: create-systemctl-service
+      needs: [create-systemctl-service, add-bot-token,deploy-via-sftp, assign-aws-creds]
       runs-on: ubuntu-latest
       steps:
       - id: creating-systemctl-restart-service
@@ -181,7 +181,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   create-systemctl-watcher:
-        needs: create-systemctl-restart
+        needs: [create-systemctl-restart ,create-systemctl-service, add-bot-token,deploy-via-sftp, assign-aws-creds]
         runs-on: ubuntu-latest
         steps:
         - id: creating-systemctl-watcher-service
