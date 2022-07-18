@@ -90,7 +90,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v2
-      - id: SFTP Deploy
+      - id: SFTPDeploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
