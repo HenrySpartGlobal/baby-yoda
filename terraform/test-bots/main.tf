@@ -9,6 +9,7 @@ module "vultr-instances" {
   tags = ["baby-yoda", "Test", "Version: 0.0.1"]
   hostname = "baby-yoda-bot"
   api_key = var.api_key
+  ssh_key_id = [vultr_ssh_key.ssh-key.id]
 }
 
 output "main_ip" {

@@ -19,10 +19,10 @@ jobs:
     permissions:
       id-token: write
       contents: read
-      
+
     outputs:
       mainIp: ${{ steps.ipAddress.outputs.address }}
-      
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -61,8 +61,7 @@ jobs:
       
     - id: ipAddress
       run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
-
-    
+      
   install-requirements:
     needs: assign-aws-creds
     runs-on: ubuntu-latest
@@ -73,25 +72,20 @@ jobs:
         command: |
           echo '###### Installing Git #######'
           sudo apt-get install git -y
-
           echo '###### Installing pip ######'
           sudo apt-get install python3-pip -y
-
           echo '###### Installing Discord Ext Menus ######'
           pip install -U git+https://github.com/Rapptz/discord-ext-menus
-
           echo '###### Installing Ap Scheduler ######'
           pip install apscheduler
-
           echo '###### Installing Discord.py ######'
           pip install discord.py
-          
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   deploy-via-sftp:
-    needs: install-requirements
+    needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so the job can access it
@@ -100,7 +94,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: ${{ env.MAIN_IP }}
+          server: ${{needs.assign-aws-creds.outputs.mainIp}}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -128,13 +122,11 @@ jobs:
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
-          host: ${{ env.MAIN_IP }}
+          host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
-#    env:
-#      REPO_NAME = ${{ env.REPO_NAME }}
     needs: add-bot-token
     runs-on: ubuntu-latest
     steps:
@@ -144,33 +136,28 @@ jobs:
         command: |
           export ${{ env.REPO_NAME }}
           echo "[Unit]
-          Description=Baby Yoda Discord Bot
+          Description=${{ env.REPO_NAME }} Discord Bot
           After=multi-user.target
-
           [Service]
           Type=simple
           ExecStart=/root/${{ env.REPO_NAME }}/launcher.py
           User=root
           WorkingDirectory=/root/${{ env.REPO_NAME }}/
           Restart=on-failure
-
           [Install]
           WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}.service
-
           chmod +x /root/${{ env.REPO_NAME }}/launcher.py
           sudo systemctl enable ${{ env.REPO_NAME }}.service
           sudo systemctl daemon-reload
           sudo systemctl start ${{ env.REPO_NAME }}.service
               
-        host: ${{ env.MAIN_IP }}
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   create-systemctl-restart:
       needs: create-systemctl-service
       runs-on: ubuntu-latest
-#      env:
-#        REPO_NAME = ${{ env.REPO_NAME }}
       steps:
       - name: creating systemctl restart service
         uses: fifsky/ssh-action@master
@@ -182,26 +169,20 @@ jobs:
             After=multi-user.target
             StartLimitInterval=10
             StartLimitBurst=5
-
             [Service]
             Type=oneshot
             ExecStart=/usr/bin/systemctl restart ${{ env.REPO_NAME }}.service
-
             [Install]
             WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}-watcher.service
-
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
-
-          host: ${{ env.MAIN_IP }}
+          host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   create-systemctl-watcher:
         needs: create-systemctl-restart
         runs-on: ubuntu-latest
-  #      env:
-  #          REPO_NAME = ${{ env.REPO_NAME }}
         steps:
         - name: creating systemctl watcher service
           uses: fifsky/ssh-action@master
@@ -210,13 +191,10 @@ jobs:
               echo "[Path]
               Unit=${{ env.REPO_NAME }}-watcher.service
               PathChanged=/root/${{ env.REPO_NAME }}
-
               [Install]
               WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}-watcher.path
-
               sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
               sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
-
-            host: ${{ env.MAIN_IP }}
+            host: ${{needs.assign-aws-creds.outputs.mainIp}}
             user: root
             key: ${{ secrets.SSH_PRIVATE_KEY }}
