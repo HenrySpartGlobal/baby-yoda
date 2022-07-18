@@ -10,20 +10,75 @@ on:
   workflow_dispatch:
 env:
     REPO_NAME: ${{ github.event.repository.name }}
+    TF_WORKING_DIR: ./terraform/test-bots
+    VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  assign-aws-creds:
+      name: Assume Github Action Role
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./terraform/test-bots
+      permissions:
+        id-token: write
+        contents: read
+
+      outputs:
+        mainIp: ${{ steps.ipAddress.outputs.address }}
+
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 1200
+      - run: aws sts get-caller-identity
+
+      - name: set up github auth
+        uses: hashicorp/setup-terraform@v2
+        with:
+            terraform_version: 1.1.9
+            terraform_wrapper: true
+      - name: git
+        run: git config --global url."https://oauth2:${{ secrets.GH_TOKEN }}@github.com".insteadOf https://github.com
+
+      - name: Terraform init
+        id: init
+        run: terraform init
+
+      - name: Terraform plan
+        id: plan
+        run: terraform plan -var api_key="${{ secrets.VULTR_API_KEY }}"
+
+      - name: Terraform Output
+        id: output
+        run: |
+           output=$(terraform output -raw main_ip)
+           echo "::set-output name=test::$output"
+
+      - id: ipAddress
+        run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+  
   # This workflow contains a single job called "SFTP"
   deploy-via-sftp:
+    needs: assign-aws-creds
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-          
+
       - name: SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
           username: root
-          server: 136.244.67.4
+          server: ${{needs.assign-aws-creds.outputs.mainIp}}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
