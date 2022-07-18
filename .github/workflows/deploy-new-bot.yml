@@ -139,7 +139,7 @@ jobs:
           After=multi-user.target
           [Service]
           Type=simple
-          ExecStart=/root/${{ env.REPO_NAME }}/launcher.py
+          ExecStart=/usr/bin/python3 /root/${{ env.REPO_NAME }}/launcher.py
           User=root
           WorkingDirectory=/root/${{ env.REPO_NAME }}/
           Restart=on-failure
