@@ -134,7 +134,6 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-          export ${{ env.REPO_NAME }}
           echo "[Unit]
           Description=${{ env.REPO_NAME }} Discord Bot
           After=multi-user.target
@@ -163,7 +162,6 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            export ${{ env.REPO_NAME }}
             echo "[Unit]
             Description=${{ env.REPO_NAME }} Discord Bot restart
             After=multi-user.target
