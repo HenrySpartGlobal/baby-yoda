@@ -113,7 +113,7 @@ jobs:
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       steps:
-      - name: executing remote ssh commands using ssh key
+      - id: add-bot-token
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -130,7 +130,7 @@ jobs:
     needs: add-bot-token
     runs-on: ubuntu-latest
     steps:
-    - name: creating systemctl service
+    - id: creating-systemctl-service
       uses: fifsky/ssh-action@master
       with:
         command: |
@@ -159,7 +159,7 @@ jobs:
       needs: create-systemctl-service
       runs-on: ubuntu-latest
       steps:
-      - name: creating systemctl restart service
+      - id: creating-systemctl-restart-service
         uses: fifsky/ssh-action@master
         with:
           command: |
@@ -184,7 +184,7 @@ jobs:
         needs: create-systemctl-restart
         runs-on: ubuntu-latest
         steps:
-        - name: creating systemctl watcher service
+        - id: creating-systemctl-watcher-service
           uses: fifsky/ssh-action@master
           with:
             command: |
