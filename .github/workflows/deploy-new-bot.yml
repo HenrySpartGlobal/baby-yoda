@@ -165,7 +165,7 @@ jobs:
             echo "[Unit]
             Description=${{ env.REPO_NAME }} Discord Bot restart
             After=multi-user.target
-            StartLimitInterval=10
+            StartLimitInterval=60
             StartLimitBurst=5
             [Service]
             Type=oneshot
