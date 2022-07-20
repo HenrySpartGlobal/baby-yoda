@@ -1,4 +1,6 @@
+from datetime import datetime
 from discord import Intents
+from discord import Embed
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 
@@ -37,7 +39,22 @@ class Bot(BotBase):
         print("Baby Yoda bot is ready")
         if not self.ready:
             self.ready = True
+            self.guild = self.get_guild(368493278460379156)
             print("Bot ready")
+
+            channel = self.get_channel(999416235609555126)
+            await channel.send("Bot Online")
+
+            embed = Embed(title="Baby Yoda online!", description="We're live.",
+                          colour=0xFF0000, timestamp=datetime.utcnow())
+            fields = [("Name", "Value", True),
+                      ("Another field", "This field is next to the other one.", True),
+                      ("A non-inline field", "This field will appear on it's own row.", False)]
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+            embed.set_footer(text="This is a footer!")
+            await channel.send(embed=embed)
+
         else:
             print("Bot Reconnected")
 
