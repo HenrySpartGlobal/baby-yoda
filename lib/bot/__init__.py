@@ -3,6 +3,7 @@ from discord import Intents
 from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
+from discord.ext.commands import CommandNotFound
 
 PREFIX = "+"
 OWNER_IDS = [135811207645888515]
@@ -34,6 +35,23 @@ class Bot(BotBase):
 
     async def on_disconnect(self):
         print("Baby Yoda has Disconnected")
+
+    async def on_error(self, err, *args, **kwargs):
+        if err == "on_command_error":
+            await args[0].send("Something went wrong.")
+
+        channel = self.get_channel(999416235609555126)
+        await channel.send("An error occured")
+        raise
+
+    async def on_command_error(self, context, exception):
+        if isinstance(exception, CommandNotFound):
+            pass
+        elif hasattr(exception, "original"):
+            raise exception.original
+
+        else:
+            raise exception
 
     async def on_ready(self):
         print("Baby Yoda bot is ready")
