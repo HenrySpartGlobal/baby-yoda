@@ -71,21 +71,20 @@ class Bot(BotBase):
             self.scheduler.start()
 
             channel = self.get_channel(999416235609555126)
-            await channel.send("Bot Online")
+            await channel.send("Baby Bot is now Online, lets go!")
 
-            #
-            # embed = Embed(title="Baby Yoda online!", description="We're live.",
-            #               colour=0xFF0000, timestamp=datetime.utcnow())
-            # fields = [("Name", "Value", True),
-            #           ("Another field", "This field is next to the other one.", True),
-            #           ("A non-inline field", "This field will appear on it's own row.", False)]
-            # for name, value, inline in fields:
-            #     embed.add_field(name=name, value=value, inline=inline)
-            # embed.set_author(name="Henry", icon_url=self.guild.icon_url)
-            # embed.set_footer(text="This is a footer!")
-            # embed.set_thumbnail(url=self.guild.icon_url)
-            # embed.set_image(url=self.guild.icon_url)
-            # await channel.send(embed=embed)
+            embed = Embed(title="Baby Yoda online!", description="We're live.",
+                          colour=0xFF0000, timestamp=datetime.utcnow())
+            fields = [("Name", "Value", True),
+                      ("Another field", "This field is next to the other one.", True),
+                      ("A non-inline field", "This field will appear on it's own row.", False)]
+            for name, value, inline in fields:
+                embed.add_field(name=name, value=value, inline=inline)
+            embed.set_author(name="Henry", icon_url=self.guild.icon_url)
+            embed.set_footer(text="This is a footer!")
+            embed.set_thumbnail(url=self.guild.icon_url)
+            embed.set_image(url=self.guild.icon_url)
+            await channel.send(embed=embed)
             #
             # await channel.send(file=File("./data/images/logo.png"))
 
