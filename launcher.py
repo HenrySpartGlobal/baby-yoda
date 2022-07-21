@@ -1,7 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env/python3
 
 from lib.bot import bot
 
-VERSION = "0.0.1"
+VERSION = "0.0.4"
 
 bot.run(VERSION)
