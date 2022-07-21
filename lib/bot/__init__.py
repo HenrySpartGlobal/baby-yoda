@@ -4,6 +4,9 @@ from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
+from apscheduler.triggers.cron import CronTrigger
+
+from ..db import db
 
 PREFIX = "+"
 OWNER_IDS = [135811207645888515]
@@ -15,6 +18,8 @@ class Bot(BotBase):
         self.ready = False
         # self.guild = None <--- Will be multi server bot so commenting out for now
         self.scheduler = AsyncIOScheduler()
+
+        db.autosave(self.scheduler)
 
         super().__init__(
             command_prefix=PREFIX,
@@ -29,6 +34,10 @@ class Bot(BotBase):
             self.TOKEN = tf.read()
         print("Running bot...")
         super().run(self.TOKEN, reconnect=True)
+
+    async def channel_reminder(self):
+        channel = self.get_channel(999416235609555126)
+        await channel.send("Rules")
 
     async def on_connect(self):
         print("Baby Yoda has Connected")
@@ -58,25 +67,29 @@ class Bot(BotBase):
         if not self.ready:
             self.ready = True
             self.guild = self.get_guild(328696263568654337)
-            print("Bot ready")
+            # self.scheduler.add_job(self.channel_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0)) uncomment to send something every week
+            self.scheduler.start()
 
             channel = self.get_channel(999416235609555126)
             await channel.send("Bot Online")
 
-            embed = Embed(title="Baby Yoda online!", description="We're live.",
-                          colour=0xFF0000, timestamp=datetime.utcnow())
-            fields = [("Name", "Value", True),
-                      ("Another field", "This field is next to the other one.", True),
-                      ("A non-inline field", "This field will appear on it's own row.", False)]
-            for name, value, inline in fields:
-                embed.add_field(name=name, value=value, inline=inline)
-            embed.set_author(name="Henry", icon_url=self.guild.icon_url)
-            embed.set_footer(text="This is a footer!")
-            embed.set_thumbnail(url=self.guild.icon_url)
-            embed.set_image(url=self.guild.icon_url)
-            await channel.send(embed=embed)
+            #
+            # embed = Embed(title="Baby Yoda online!", description="We're live.",
+            #               colour=0xFF0000, timestamp=datetime.utcnow())
+            # fields = [("Name", "Value", True),
+            #           ("Another field", "This field is next to the other one.", True),
+            #           ("A non-inline field", "This field will appear on it's own row.", False)]
+            # for name, value, inline in fields:
+            #     embed.add_field(name=name, value=value, inline=inline)
+            # embed.set_author(name="Henry", icon_url=self.guild.icon_url)
+            # embed.set_footer(text="This is a footer!")
+            # embed.set_thumbnail(url=self.guild.icon_url)
+            # embed.set_image(url=self.guild.icon_url)
+            # await channel.send(embed=embed)
+            #
+            # await channel.send(file=File("./data/images/logo.png"))
 
-            await channel.send(file=File("./data/images/logo.png"))
+            print("Bot ready")
 
         else:
             print("Bot Reconnected")
