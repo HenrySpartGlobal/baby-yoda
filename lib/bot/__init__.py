@@ -1,6 +1,6 @@
 from datetime import datetime
 from discord import Intents
-from discord import Embed
+from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 
@@ -39,7 +39,7 @@ class Bot(BotBase):
         print("Baby Yoda bot is ready")
         if not self.ready:
             self.ready = True
-            self.guild = self.get_guild(368493278460379156)
+            self.guild = self.get_guild(328696263568654337)
             print("Bot ready")
 
             channel = self.get_channel(999416235609555126)
@@ -52,8 +52,13 @@ class Bot(BotBase):
                       ("A non-inline field", "This field will appear on it's own row.", False)]
             for name, value, inline in fields:
                 embed.add_field(name=name, value=value, inline=inline)
+            embed.set_author(name="Henry", icon_url=self.guild.icon_url)
             embed.set_footer(text="This is a footer!")
+            embed.set_thumbnail(url=self.guild.icon_url)
+            embed.set_image(url=self.guild.icon_url)
             await channel.send(embed=embed)
+
+            await channel.send(file=File("./data/images/logo.png"))
 
         else:
             print("Bot Reconnected")
