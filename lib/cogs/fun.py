@@ -67,7 +67,7 @@ class Fun(Cog):
                 else:
                     await ctx.send(f"API returned with a {response.status} status.")
         else:
-            await ctx.send(f"I can't find any facts on {animal.title()}s")
+            await ctx.send(f"I can't find any facts on {animal.title()}")
 
     @Cog.listener()
     async def on_ready(self):
