@@ -5,7 +5,8 @@ from discord import Intents
 from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument)
+from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import Context
 from apscheduler.triggers.cron import CronTrigger
 
@@ -15,6 +16,7 @@ PREFIX = "+"
 OWNER_IDS = [135811207645888515]
 # COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")] this line for windows
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
+IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 
 class Ready(object):
@@ -87,17 +89,24 @@ class Bot(BotBase):
         if err == "on_command_error":
             await args[0].send("Something went wrong.")
 
-        await self.stdout.send("An error occured")
+        await self.stdout.send("An error occurred")
         raise
 
     async def on_command_error(self, context, exception):
-        if isinstance(exception, CommandNotFound):
+        if any([isinstance(exception, error) for error in IGNORE_EXCEPTIONS]):
             pass
-        elif hasattr(exception, "original"):
-            raise exception.original
+
+        elif isinstance(exception, MissingRequiredArgument):
+            await context.send("One or more required arguments are missing")
+
+        elif isinstance(exception.original, HTTPException):
+            await context.send("I can't send that message.")
+
+        elif isinstance(exception.original, Forbidden):
+            await context.send("I don't have permissions to do that")
 
         else:
-            raise exception
+            raise exception.original
 
     async def on_ready(self):
         print("Baby Yoda bot is ready")

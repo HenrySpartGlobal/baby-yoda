@@ -1,5 +1,6 @@
 from random import choice
 from random import randint
+from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument)
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 
@@ -19,9 +20,14 @@ class Fun(Cog):
     @command(name="dice", aliases=["roll"])
     async def roll_dice(self, ctx, die_string: str):
         dice, value = (int(term) for term in die_string.split("d"))
-        rolls = [randint(1, value) for i in range(dice)]
 
-        await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+        if dice <= 25:
+            rolls = [randint(1, value) for i in range(dice)]
+
+            await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
+
+        else:
+            await ctx.send("I can't role that many dice chief. Please try a number  below 25.")
 
     # Echo example command: echo Hello World - Deletes the last message and Bot echos the message "Hello World"
     @command(name="echo", aliases=["say"])
