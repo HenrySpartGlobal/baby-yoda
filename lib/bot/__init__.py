@@ -5,7 +5,7 @@ from discord import Intents
 from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
-from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument)
+from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import Context
 from apscheduler.triggers.cron import CronTrigger
@@ -99,14 +99,20 @@ class Bot(BotBase):
         elif isinstance(exception, MissingRequiredArgument):
             await context.send("One or more required arguments are missing")
 
-        elif isinstance(exception.original, HTTPException):
-            await context.send("I can't send that message.")
+        elif isinstance(exception, CommandOnCooldown):
+            await context.send(f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds")
 
-        elif isinstance(exception.original, Forbidden):
-            await context.send("I don't have permissions to do that")
+        elif hasattr(exception, "original"):
+
+            if isinstance(exception.original, Forbidden):
+                await context.send("I don't have permissions to do that")
+
+            else:
+                raise exception.original
 
         else:
-            raise exception.original
+            raise exception
+
 
     async def on_ready(self):
         print("Baby Yoda bot is ready")
