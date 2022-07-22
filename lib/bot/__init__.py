@@ -6,6 +6,7 @@ from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import CommandNotFound
+from discord.ext.commands import Context
 from apscheduler.triggers.cron import CronTrigger
 
 from ..db import db
@@ -62,6 +63,16 @@ class Bot(BotBase):
             self.TOKEN = tf.read()
         print("Running bot...")
         super().run(self.TOKEN, reconnect=True)
+
+    # warm up message if body is not ready
+    async def process_commands(self, message):
+        ctx = await self.get_context(message, cls=Context)
+
+        if ctx.command is not None and ctx.guild is not None:
+            if self.ready:
+                await self.invoke(ctx)
+            else:
+                await ctx.send("I'm still warming up, please wait...")
 
     async def channel_reminder(self):
         await self.stdout.send("Rules")
