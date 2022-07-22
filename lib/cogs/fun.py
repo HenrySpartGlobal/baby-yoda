@@ -55,11 +55,11 @@ class Fun(Cog):
     async def kek_video(self, ctx):
         await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
 
-    #@command(name="cageandre", aliases=["muteandre", "andre", "lockandre"])
-    # cooldown - 1 allowed 86400 seconds (1 day) for everyone
-    #@cooldown(1, 86400, BucketType.guild)
-        #async def mute_andre(self, ctx):
-    #   await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
+    # @command(name="cageandre", aliases=["muteandre", "andre", "lockandre"])
+    # # cooldown - 1 allowed 86400 seconds (1 day) for everyone
+    # @cooldown(1, 86400, BucketType.guild)
+    # async def mute_andre(self, ctx):
+    #     await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
 
     # Animal facts - +fact {animal}
     @command(name="fact", aliases=["facts"])
