@@ -46,7 +46,20 @@ class Fun(Cog):
     # cooldown - 3 allow in 1 minute
     @cooldown(3, 60, BucketType.user)
     async def who_asked(self, ctx):
-        await ctx.send(f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://tenor.com/view/didnt-ask-plus-youre-female-gif-20548291', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
+        await ctx.send(
+            f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://tenor.com/view/didnt-ask-plus-youre-female-gif-20548291', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
+
+    @command(name="kekw")
+    # cooldown - 3 allow in 1 minute
+    @cooldown(3, 60, BucketType.user)
+    async def kek_video(self, ctx):
+        await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
+
+    #@command(name="cageandre", aliases=["muteandre", "andre", "lockandre"])
+    # cooldown - 1 allowed 86400 seconds (1 day) for everyone
+    #@cooldown(1, 86400, BucketType.guild)
+        #async def mute_andre(self, ctx):
+    #   await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
 
     # Animal facts - +fact {animal}
     @command(name="fact", aliases=["facts"])
