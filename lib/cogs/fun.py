@@ -1,7 +1,7 @@
 from random import choice
 from random import randint
 
-from discord import Embed
+from discord import Embed, File
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument)
 from aiohttp import request
 from discord.ext.commands import Cog
@@ -39,6 +39,10 @@ class Fun(Cog):
     async def echo_message(self, ctx, *, message):
         await ctx.message.delete()
         await ctx.send(message)
+
+    @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?"])
+    async def who_asked(self, ctx):
+        await ctx.send(f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://tenor.com/view/didnt-ask-plus-youre-female-gif-20548291', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
 
     # Animal facts - +fact {animal}
     @command(name="fact", aliases=["facts"])
