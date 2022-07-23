@@ -1,21 +1,17 @@
-from datetime import datetime
 from asyncio import sleep
 from glob import glob
 from discord import Intents
-from discord import Embed, File
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
-from discord.errors import HTTPException, Forbidden
+from discord.errors import Forbidden
 from discord.ext.commands import Context
-from apscheduler.triggers.cron import CronTrigger
 
-from discord.ext.commands import when_mentioned_or, command, has_permissions
+from discord.ext.commands import when_mentioned_or
 
 from ..db import db
 
 OWNER_IDS = [135811207645888515]
-# COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")] this line for windows
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
