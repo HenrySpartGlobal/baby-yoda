@@ -5,9 +5,9 @@ Baby Yoda Discord Bot
 
 Baby Yoda bot does what most popular bots do. 
 
-Hosted on a Vultr instance provisioned and delivered with terraform and Github actions for a great CI/CD experience.
+Hosted on a Vultr instance provisioned and delivered with terraform and Github actions for a seamless CI/CD experience.
 
-List of Functionalities: 
+List of coming Functionalities: 
 
 - Admin features:
     - Custom command prefixes (+ ! etc)

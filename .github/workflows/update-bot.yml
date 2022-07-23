@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env:
     REPO_NAME: ${{ github.event.repository.name }}
-    TF_WORKING_DIR: ./terraform/test-bots
+    TF_WORKING_DIR: ./terraform/${{ env.REPO_NAME }}
     VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,7 +19,7 @@ jobs:
       runs-on: ubuntu-latest
       defaults:
         run:
-          working-directory: ./terraform/test-bots
+          working-directory: ./terraform/${{ env.REPO_NAME }}
       permissions:
         id-token: write
         contents: read
