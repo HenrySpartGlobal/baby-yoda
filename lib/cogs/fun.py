@@ -12,9 +12,7 @@ class Fun(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @command(name="hello",
-             aliases=["hi", "hey", "sup", "hiya", "greetings", "Hi", "Hey", "Sup", "Hiya", "Greetings", "Hola",
-                      "Bonjour", "Guten tag", "hola", "bonjour", "guten tag"], description="Say Hello to me, I respond back of course!")
+    @command(name="greet", description="Say Hello to me, I respond back of course!")
     # cooldown - 3 allow in 1 minute
     @cooldown(3, 60, BucketType.guild)
     async def say_hello(self, ctx):

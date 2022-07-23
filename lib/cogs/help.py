@@ -14,13 +14,14 @@ def syntax(command):
     for key, value in command.params.items():
         if key not in ("self", "ctx"):
             params.append(f"[{key}]" if "NoneType" in str(value) else f"<{key}>")
+
     params = " ".join(params)
 
-    return f"```{cmd_and_aliases} {params}```"
+    return f"`{cmd_and_aliases} {params}`"
 
 
 class HelpMenu(ListPageSource):
-    def __int__(self, ctx, data):
+    def __init__(self, ctx, data):
         self.ctx = ctx
 
         super().__init__(data, per_page=3)
@@ -41,7 +42,7 @@ class HelpMenu(ListPageSource):
         fields = []
 
         for entry in entries:
-            fields.append((entry.brief or "No Description", syntax(entry)))
+            fields.append((entry.brief or "No description", syntax(entry)))
 
         return await self.write_page(menu, fields)
 
@@ -52,7 +53,7 @@ class Help(Cog):
         self.bot.remove_command("help")
 
     async def cmd_help(self, ctx, command):
-        embed = Embed(title=f"`{command}`",
+        embed = Embed(title=f"Help with `{command}`",
                       description=syntax(command),
                       colour=ctx.author.colour)
         embed.add_field(name="Command description", value=command.help)
@@ -60,7 +61,7 @@ class Help(Cog):
 
     @command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
-        """Shows this message"""
+        """Shows this message."""
         if cmd is None:
             menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)),
                              clear_reactions_after=True,
