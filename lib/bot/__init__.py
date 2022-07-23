@@ -10,13 +10,19 @@ from discord.errors import HTTPException, Forbidden
 from discord.ext.commands import Context
 from apscheduler.triggers.cron import CronTrigger
 
+from discord.ext.commands import when_mentioned_or, command, has_permissions
+
 from ..db import db
 
-PREFIX = "+"
 OWNER_IDS = [135811207645888515]
 # COGS = [path.split("\\")[-1][:-3] for path in glob("./lib/cogs/*.py")] this line for windows
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
 IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
+
+
+def get_prefix(bot, message):
+    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
+    return when_mentioned_or(prefix)(bot, message)
 
 
 class Ready(object):
@@ -34,7 +40,6 @@ class Ready(object):
 
 class Bot(BotBase):
     def __init__(self):
-        self.PREFIX = PREFIX
         self.ready = False
         self.cogs_ready = Ready()
         # self.guild = None <--- Will be multi server bot so commenting out for now
@@ -43,7 +48,7 @@ class Bot(BotBase):
         db.autosave(self.scheduler)
 
         super().__init__(
-            command_prefix=PREFIX,
+            command_prefix=get_prefix,
             owner_ids=OWNER_IDS,
             intents=Intents.all()
         )
@@ -100,7 +105,8 @@ class Bot(BotBase):
             await context.send("One or more required arguments are missing")
 
         elif isinstance(exception, CommandOnCooldown):
-            await context.send(f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds")
+            await context.send(
+                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds")
 
         elif hasattr(exception, "original"):
 
@@ -112,7 +118,6 @@ class Bot(BotBase):
 
         else:
             raise exception
-
 
     async def on_ready(self):
         print("Baby Yoda bot is ready")
