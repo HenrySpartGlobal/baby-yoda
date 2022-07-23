@@ -8,12 +8,14 @@ from discord.ext.commands import command
 
 def syntax(command):
     cmd_and_aliases = "|".join([str(command), *command.aliases])
-
     params = []
 
-    return f"``````"
+    for key, value in command.params.items():
+        if key not in ("self", "ctx"):
+            params.append(f"[{key}]" if "NoneType" in str(value) else f"<{key}>")
+    params = " ".join(params)
 
-
+    return f"```{cmd_and_aliases} {params}```"
 
 
 class Help(Cog):
@@ -26,18 +28,20 @@ class Help(Cog):
                       description=syntax(command),
                       colour=ctx.author.colour)
         embed.add_field(name="Command description", value=command.help)
+        await ctx.send(embed=embed)
 
     @command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
         """Shows this message"""
         if cmd is None:
             pass
+
         else:
-            if command := get(self.bot.commands, name=cmd):
+            if (command := get(self.bot.commands, name=cmd)):
                 await self.cmd_help(ctx, command)
 
             else:
-                await ctx.send("That command odes not exist")
+                await ctx.send("That command does not exist")
 
     @Cog.listener()
     async def on_ready(self):
