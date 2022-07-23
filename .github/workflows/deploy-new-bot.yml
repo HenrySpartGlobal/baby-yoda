@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 env:
     REPO_NAME: ${{ github.event.repository.name }}
-    TF_WORKING_DIR: ./terraform/test-bots
+    TF_WORKING_DIR: ./terraform/${{ env.REPO_NAME }}
     VULTR_API_KEY: ${{ secrets.VULTR_API_KEY }}
     
 jobs:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./terraform/test-bots
+        working-directory: ./terraform/${{ env.REPO_NAME }}
     permissions:
       id-token: write
       contents: read
@@ -117,7 +117,7 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd baby-yoda/lib/bot
+            cd ${{ env.REPO_NAME }}/lib/bot
             touch token.0
             export ${{ env.BOT_TOKEN }}
             echo ${{ env.BOT_TOKEN }} > token.0
