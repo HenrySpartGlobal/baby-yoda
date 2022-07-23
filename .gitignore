@@ -3,6 +3,7 @@
 __pycache__
 
 lib/bot/token.0
+lib/bot/token
 nohup.out
 
 *.tfvars
