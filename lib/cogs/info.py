@@ -25,7 +25,7 @@ class Info(Cog):
                   ("Bot", target.bot, True),
                   ("Top role", target.top_role.mention, True),
                   ("Status", str(target.status).title(), True),
-                  ("Activity", f"{target.activity.name} {str(getattr(target.activity, 'type')).title()}", True),
+                  ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} {target.activity.name if target.activity else ''}", True),
                   ("Created at", target.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
                   ("Joined at", target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), True),
                   ("Boosted", bool(target.premium_since), True)]
