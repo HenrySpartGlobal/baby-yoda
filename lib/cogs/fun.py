@@ -45,14 +45,15 @@ class Fun(Cog):
         await ctx.message.delete()
         await ctx.send(message)
 
-    @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?"], description="Send a random 'No one asked' meme")
+    @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?"],
+             description="Send a random 'No one asked' meme")
     # cooldown - 3 allow in 1 minute
     @cooldown(3, 60, BucketType.user)
     async def who_asked(self, ctx):
         await ctx.send(
             f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://tenor.com/view/didnt-ask-plus-youre-female-gif-20548291', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
 
-    @command(name="kekw",  description="A link to the infamous baby yoda kekw video")
+    @command(name="kekw", description="A link to the infamous baby yoda kekw video")
     # cooldown - 3 allow in 1 minute
     @cooldown(3, 60, BucketType.user)
     async def kek_video(self, ctx):
@@ -66,7 +67,8 @@ class Fun(Cog):
     #     await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
 
     # Animal facts - +fact {animal}
-    @command(name="fact", aliases=["facts"],  description="Random fact on an animal. Supported animals: Dogs, Cats, Pandas, Foxs, Birds and Koalas")
+    @command(name="fact", aliases=["facts"],
+             description="Random fact on an animal. Supported animals: Dogs, Cats, Pandas, Foxs, Birds and Koalas")
     # cooldown - 3 allow in 1 minute for the entire server
     @cooldown(3, 60, BucketType.guild)
     async def animal_fact(self, ctx, animal: str):
@@ -95,6 +97,20 @@ class Fun(Cog):
                     await ctx.send(f"API returned with a {response.status} status.")
         else:
             await ctx.send(f"I can't find any facts on {animal.title()}")
+
+    @command(name="stock", aliases=["price"], description="Get the price of a stock")
+    async def stock_price(self, ctx, stock: str):
+        if (stock := stock.upper()) in stock:
+            stock_url = f"https://cryptingup.com/api/assets/{stock}"
+
+            async with request("GET", stock_url, headers={}) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    stock_link = data['asset']['quote']['GBP']['price']
+
+                    await ctx.send(f"Price of {stock} is: £{stock_link:,.2f}")
+                else:
+                    await ctx.send(f"I can't find {stock}, you're making shit up.")
 
     @Cog.listener()
     async def on_ready(self):
