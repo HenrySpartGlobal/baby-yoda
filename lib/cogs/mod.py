@@ -6,6 +6,7 @@ from discord.ext.commands import Cog, Greedy
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, bot_has_permissions
 
+
 class Mod(Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -15,7 +16,7 @@ class Mod(Cog):
     @has_permissions(kick_members=True)
     async def kick_members(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.", delete_after=3)
 
         else:
             for target in targets:
@@ -44,14 +45,14 @@ class Mod(Cog):
     @kick_members.error
     async def kick_members_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Nice try, you don't have permissions for that.")
+            await ctx.send("Nice try, you don't have permissions for that.", delete_after=5)
 
     @command(name="ban")
     @bot_has_permissions(ban_members=True)
     @has_permissions(ban_members=True)
     async def ban_members(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided"):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing")
+            await ctx.send("One or more required arguments are missing", delete_after=5)
 
         else:
             for target in targets:
@@ -73,14 +74,27 @@ class Mod(Cog):
                     await self.log_channel.send(embed=embed)
 
                 else:
-                    await ctx.send(f"{target.display_name} can't be banned.")
+                    await ctx.send(f"{target.display_name} can't be banned.", delete_after=5)
 
             await ctx.send("Ban complete")
 
     @ban_members.error
     async def ban_members_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Nice try, you don't have permissions for that.") #insert an emoji
+            await ctx.send("Nice try, you don't have permissions for that.", delete_after=10)  # insert an emoji
+
+    @command(name="clear", aliases=["purge", "delete"])
+    @bot_has_permissions(manage_messages=True)
+    @has_permissions(manage_messages=True)
+    async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 3):
+        def _check(message):
+            return not len(targets) or message.author in targets
+
+        with ctx.channel.typing():
+            await ctx.message.delete()
+            deleted = await ctx.channel.purge(limit=limit, check=_check)
+
+            await ctx.send(f"Purging last {len(deleted):,} message(s).", delete_after=5)
 
     @Cog.listener()
     async def on_ready(self):

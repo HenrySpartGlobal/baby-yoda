@@ -13,7 +13,7 @@ class Misc(Cog):
     @has_permissions(manage_guild=True)
     async def change_prefix(self, ctx, new: str):
         if len(new) > 5:
-            await ctx.send("Prefix too long. Prefix can not be longer than 5 characters in length.")
+            await ctx.send("Prefix too long. Prefix can not be longer than 5 characters in length.", delete_after=15)
 
         else:
             db.execute("UPDATE guilds SET Prefix = ? WHERE GuildId = ?", new, ctx.guild.id)
@@ -22,7 +22,7 @@ class Misc(Cog):
     @change_prefix.error
     async def change_prefix_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("You're not important enough to change that <:sadpeepocat:675030215214366781> - You need manage server permissions.")
+            await ctx.send("You're not important enough to change that <:sadpeepocat:675030215214366781> - You need manage server permissions. ", delete_after=15)
 
     @Cog.listener()
     async def on_ready(self):

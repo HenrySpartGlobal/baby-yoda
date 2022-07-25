@@ -35,7 +35,7 @@ class Fun(Cog):
 
         else:
             await ctx.send("I can't role that many dice chief <:sadpeepocat:675030215214366781> . Please try a number "
-                           " below 25.")
+                           " below 25.", delete_after=15)
 
     # Echo example command: echo Hello World - Deletes the last message and Bot echos the message "Hello World"
     @command(name="echo", aliases=["say"], description=" Make me echo your message")
@@ -108,7 +108,7 @@ class Fun(Cog):
                     data = await response.json()
                     stock_link = data['asset']['quote']['GBP']['price']
 
-                    await ctx.send(f"Price of {stock} is: £{stock_link:,.2f}")
+                    await ctx.send(f"Price of {stock} is: **£{stock_link:,.2f}**")
                 else:
                     await ctx.send(f"I can't find {stock}, you're making shit up.")
 
