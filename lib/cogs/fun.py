@@ -34,7 +34,8 @@ class Fun(Cog):
             await ctx.send(" + ".join([str(r) for r in rolls]) + f" = {sum(rolls)}")
 
         else:
-            await ctx.send("I can't role that many dice chief. Please try a number  below 25.")
+            await ctx.send("I can't role that many dice chief <:sadpeepocat:675030215214366781> . Please try a number "
+                           " below 25.")
 
     # Echo example command: echo Hello World - Deletes the last message and Bot echos the message "Hello World"
     @command(name="echo", aliases=["say"], description=" Make me echo your message")
@@ -56,6 +57,7 @@ class Fun(Cog):
     @cooldown(3, 60, BucketType.user)
     async def kek_video(self, ctx):
         await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
+        await ctx.send("<:link_mrcrabs:793488850235555920>")
 
     # @command(name="cageandre", aliases=["muteandre", "andre", "lockandre"])
     # # cooldown - 1 allowed 86400 seconds (1 day) for everyone
