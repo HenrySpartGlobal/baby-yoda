@@ -98,16 +98,16 @@ class Bot(BotBase):
             pass
 
         elif isinstance(exception, MissingRequiredArgument):
-            await context.send("One or more required arguments are missing")
+            await context.send("One or more required arguments are missing", delete_after=5)
 
         elif isinstance(exception, CommandOnCooldown):
             await context.send(
-                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds")
+                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds",  delete_after=10)
 
         elif hasattr(exception, "original"):
 
             if isinstance(exception.original, Forbidden):
-                await context.send("I don't have permissions to do that")
+                await context.send("I don't have permissions to do that",  delete_after=10)
 
             else:
                 raise exception.original

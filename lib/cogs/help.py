@@ -73,7 +73,7 @@ class Help(Cog):
                 await self.cmd_help(ctx, command)
 
             else:
-                await ctx.send("That command does not exist")
+                await ctx.send("That command does not exist", delete_after=15)
 
     @Cog.listener()
     async def on_ready(self):
