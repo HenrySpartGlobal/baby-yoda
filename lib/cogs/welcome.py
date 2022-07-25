@@ -28,7 +28,7 @@ class Welcome(Cog):
             pass
 
         # make sure these roles are not at the top - above any admin roles or there will be an error
-        await member.add_roles(member.guild.get_role(1000485792264753215), member.guild.get_role(1000477037951193228))
+        # await member.add_roles(member.guild.get_role(1000485792264753215), member.guild.get_role(1000477037951193228))
 
     @Cog.listener()
     async def on_member_remove(self, member):

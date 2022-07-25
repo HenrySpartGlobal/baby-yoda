@@ -18,7 +18,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_user_update(self, before, after):
         if before.name != after.name:
-            embed = Embed(title=f"{before.author.display_name} changed their Username",
+            embed = Embed(title="Changed Username",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
@@ -29,7 +29,7 @@ class Log(Cog):
                 embed.add_field(name=name, value=value, inline=inline)
 
         if before.discriminator != after.discriminator:
-            embed = Embed(title=f"{before.author.display_name} changed their Discriminator",
+            embed = Embed(title="Changed Discriminator",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
@@ -42,7 +42,7 @@ class Log(Cog):
             await self.log_channel.send(embed=embed)
 
         if before.avatar_url != after.avatar_url:
-            embed = Embed(title=f"{before.author.display_name} Updated their picture",
+            embed = Embed(title="Updated Picture",
                           description="Avatar change - New image below",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
@@ -55,7 +55,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
-            embed = Embed(title=f"{before.author.display_name} Nickname changed",
+            embed = Embed(title="Nickname changed",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
@@ -68,7 +68,7 @@ class Log(Cog):
             await self.log_channel.send(embed=embed)
 
         elif before.roles != after.roles:
-            embed = Embed(title=f"{before.author.display_name} Role changed",
+            embed = Embed(title="Role changed",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
