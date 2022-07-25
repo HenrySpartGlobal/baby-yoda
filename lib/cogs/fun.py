@@ -108,7 +108,7 @@ class Fun(Cog):
                     data = await response.json()
                     stock_link = data['asset']['quote']['GBP']['price']
 
-                    await ctx.send(f"Price of {stock} is: £{stock_link:,.2f}")
+                    await ctx.send(f"Price of {stock} is: **£{stock_link:,.2f}**")
                 else:
                     await ctx.send(f"I can't find {stock}, you're making shit up.")
 
