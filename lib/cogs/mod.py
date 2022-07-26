@@ -1,10 +1,13 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
+from asyncio import sleep
 
 from discord import Embed, Member
 from discord.ext.commands import Cog, Greedy
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, bot_has_permissions
+
+from ..db import db
 
 
 class Mod(Cog):
@@ -96,10 +99,97 @@ class Mod(Cog):
 
             await ctx.send(f"Purging last {len(deleted):,} message(s).", delete_after=5)
 
+    @command(name="mute")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_roles=True, manage_guild=True)
+    async def mute_members(self, ctx, targets: Greedy[Member], hours: Optional[int], *,
+                           reason: Optional[str] = "No reason provided."):
+        if not len(targets):
+            await ctx.send("One or more required arguments are missing.")
+
+        else:
+            unmutes = []
+
+            for target in targets:
+                if not self.mute_role in target.roles:
+                    if ctx.guild.me.top_role.position > target.top_role.position:
+                        roles_ids = ",".join([str(r.id) for r in target.roles])
+                        end_time = datetime.utcnow() + timedelta(
+                            seconds=hours) if hours else None  # seconds=hours*3600 for hours, minutes *60
+
+                        db.execute("INSERT INTO mutes VALUES (?, ?, ?)", target.id, roles_ids,
+                                   getattr(end_time, "isoformat", lambda: None)())
+                        await target.edit(roles=[self.mute_role])
+
+                        embed = Embed(title="Someone Muted", colour=0xDD2222, timestamp=datetime.utcnow())
+
+                        embed.set_thumbnail(url=target.avatar_url)
+
+                        fields = [("Member", f"{target.name} or {target.display_name}", False),
+                                  ("Muted by", ctx.author.display_name, False),
+                                  ("Duration", f"{hours:,} hours(s)" if hours else "Indefinite", False),
+                                  ("Reason", reason, False)]
+
+                        for name, value, inline in fields:
+                            embed.add_field(name=name, value=value, inline=inline)
+
+                        await self.log_channel.send(embed=embed)
+
+                        if hours:
+                            unmutes.append(target)
+
+                    else:
+                        await ctx.send(f"{target.display_name} can't be muted. kekw")
+
+                else:
+                    await ctx.send(f"{target.display_name} is already muted")
+
+            await ctx.send("Mute Complete")
+            if len(unmutes):
+                await sleep(hours)
+                await self.unmute(ctx, targets)
+
+    @mute_members.error
+    async def mute_members_error(self, ctx, exc):
+        if isinstance(exc, CheckFailure):
+            await ctx.send("Insufficient permissions to perform that task.")
+
+    async def unmute(self,ctx, targets, reason="Mute time expired."):
+        for target in targets:
+            if self.mute_role in target.roles:
+                role_ids = db.field("SELECT RoleIds FROM mutes WHERE UserID = ?", target.id)
+                roles = [ctx.guild.get_role(int(id_)) for id_ in role_ids.split(",") if len(id_)]
+
+                db.execute("DELETE FROM mutes WHERE UserID = ?", target.id)
+                await target.edit(roles=roles)
+
+                embed = Embed(title="Someone Unmuted", colour=0xDD2222, timestamp=datetime.utcnow())
+
+                embed.set_thumbnail(url=target.avatar_url)
+
+                fields = [("Member", f"{target.name} or {target.display_name}", False),
+                          ("Reason", reason, False)]
+
+                for name, value, inline in fields:
+                    embed.add_field(name=name, value=value, inline=inline)
+
+                await self.log_channel.send(embed=embed)
+
+    @command(name="unmute")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_roles=True, manage_guild=True)
+    async def unmute_members(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
+        if not len(targets):
+            await ctx.send("One or more required arguments is missing.")
+
+        else:
+            await self.unmute(ctx, targets, reason=reason)
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
             self.log_channel = self.bot.get_channel(1000527671597486161)
+            self.mute_role = self.bot.guild.get_role(1001591748511928460)  # create a mute role
             self.bot.cogs_ready.ready_up("mod")
 
 
