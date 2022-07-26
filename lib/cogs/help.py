@@ -61,19 +61,20 @@ class Help(Cog):
 
     @command(name="help")
     async def show_help(self, ctx, cmd: Optional[str]):
-        """Shows this message."""
-        if cmd is None:
-            menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)),
-                             clear_reactions_after=True,
-                             timeout=60.0)
-            await menu.start(ctx)
-
-        else:
-            if (command := get(self.bot.commands, name=cmd)):
-                await self.cmd_help(ctx, command)
+        async with ctx.channel.typing():
+            """Shows this message."""
+            if cmd is None:
+                menu = MenuPages(source=HelpMenu(ctx, list(self.bot.commands)),
+                                 clear_reactions_after=True,
+                                 timeout=60.0)
+                await menu.start(ctx)
 
             else:
-                await ctx.send("That command does not exist", delete_after=15)
+                if (command := get(self.bot.commands, name=cmd)):
+                    await self.cmd_help(ctx, command)
+
+                else:
+                    await ctx.send("That command does not exist", delete_after=15)
 
     @Cog.listener()
     async def on_ready(self):
