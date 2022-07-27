@@ -100,8 +100,9 @@ class Mod(Cog):
 
             await ctx.send(f"Purging last {len(deleted):,} message(s).", delete_after=5)
 
-    @command(description="Mutes the specified user.")
-    @has_permissions(manage_messages=True)
+    @command(name="mute", description="Mutes the specified user.")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_roles=True, manage_guild=True)
     async def mute(self, ctx, member: discord.Member, *, reason=None):
         guild = ctx.guild
         mutedRole = discord.utils.get(guild.roles, name="Muted")
@@ -114,14 +115,39 @@ class Mod(Cog):
                                               read_messages=True)
 
         await member.add_roles(mutedRole, reason=reason)
+        await ctx.send(f"Muted {member.mention} for reason {reason}")
 
-    @command(description="Unmutes a specified user.")
-    @has_permissions(manage_messages=True)
+        embed = Embed(title=f"{member.display_name} Muted", colour=0xDD2222, timestamp=datetime.utcnow())
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        fields = [("Member", f"{member.display_name}", False),
+                  ("Muted by", ctx.author.display_name, False),
+                  ("Reason", reason, False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        await self.log_channel.send(embed=embed)
+
+    @command(name="unmute", description="Unmutes a specified user.")
+    @bot_has_permissions(manage_roles=True)
+    @has_permissions(manage_roles=True, manage_guild=True)
     async def unmute(self, ctx, member: discord.Member):
         mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 
         await member.remove_roles(mutedRole)
-        await ctx.send(f"Unmuted {member.mention}")
+        embed = Embed(title=f"{member.display_name} Unmuted", colour=0xDD2222, timestamp=datetime.utcnow())
+
+        embed.set_thumbnail(url=member.avatar_url)
+
+        fields = [("Member", f"{member.display_name}", False),
+                  ("Unmuted by", ctx.author.display_name, False)]
+
+        for name, value, inline in fields:
+            embed.add_field(name=name, value=value, inline=inline)
+
+        await self.log_channel.send(embed=embed)
 
     @Cog.listener()
     async def on_ready(self):
