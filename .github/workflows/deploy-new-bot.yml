@@ -80,6 +80,8 @@ jobs:
           pip install apscheduler
           echo '###### Installing Discord.py ######'
           pip install discord.py==1.7.3
+          echo '###### Installing Better Profanity ######'
+          pip install better_profanity
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
