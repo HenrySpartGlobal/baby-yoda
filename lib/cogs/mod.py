@@ -2,8 +2,9 @@ from asyncio import sleep
 from datetime import datetime, timedelta
 from typing import Optional
 
+import discord
 from discord import Embed, Member
-from discord.ext.commands import Cog, Greedy
+from discord.ext.commands import Cog, Greedy, cooldown, BucketType
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, bot_has_permissions
 
@@ -184,6 +185,33 @@ class Mod(Cog):
 
         else:
             await self.unmute(ctx, targets, reason=reason)
+
+    @command(name="andre", aliases=["cageandre", "muteandre", "cage"], description="Mutes Andre.")
+    @bot_has_permissions(manage_roles=True)
+    # Once every 3 hours
+    @cooldown(1, 10800, BucketType.guild)
+    async def mute(self, ctx):
+        guild = ctx.guild
+        andre = ctx.guild.get_member(1001955380160647188)
+        mutedRole = discord.utils.get(guild.roles, name="Muted")
+
+        if not mutedRole:
+            mutedRole = await guild.create_role(name="Muted")
+
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=True, send_messages=False, read_message_history=True,
+                                              read_messages=True)
+
+        await andre.add_roles(mutedRole)
+        await ctx.send("Caged Andre 👮 - He'll be back in 5 minutes.")
+
+        embed = Embed(title=f"Andre caged", colour=0xDD2222, timestamp=datetime.utcnow())
+
+        await self.log_channel.send(embed=embed)
+        await sleep(300)
+        await andre.remove_roles(mutedRole)
+        embed_uncage = Embed(title=f"Andre uncaged after 5 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
+        await self.log_channel.send(embed=embed_uncage)
 
     @Cog.listener()
     async def on_ready(self):
