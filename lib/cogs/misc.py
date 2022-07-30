@@ -16,7 +16,7 @@ class Misc(Cog):
             await ctx.send("Prefix too long. Prefix can not be longer than 5 characters in length.", delete_after=15)
 
         else:
-            db.execute("UPDATE guilds SET Prefix = ? WHERE GuildId = ?", new, ctx.guild.id)
+            db.execute("UPDATE guilds SET Prefix = ? WHERE GuildID = ?", new, ctx.guild.id)
             await ctx.send(f"Prefix set to {new}.")
 
     @change_prefix.error

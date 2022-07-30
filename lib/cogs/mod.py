@@ -1,9 +1,9 @@
 from asyncio import sleep
 from datetime import datetime, timedelta
-from typing import Optional
-
+from typing import Optional, List
 import discord
-from discord import Embed, Member
+from better_profanity import profanity
+from discord import Embed, Member, Message
 from discord.ext.commands import Cog, Greedy, cooldown, BucketType
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import command, has_permissions, bot_has_permissions
@@ -213,12 +213,44 @@ class Mod(Cog):
         embed_uncage = Embed(title=f"Andre uncaged after 5 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
         await self.log_channel.send(embed=embed_uncage)
 
+    @command(name="profanity", aliases=["curse", "swears"])
+    @has_permissions(manage_guild=True)
+    async def add_profanity(self, ctx, *words):
+        with open("./data/profanity.txt", "a", encoding="utf-8") as f:
+            f.write("".join([f"{w}\n" for w in words]))
+
+        profanity.load_censor_words_from_file("./data/profanity.txt")
+        await ctx.send("Word Added")
+
+    @command(name="delprofanity", aliases=["delcurse", "delswears"])
+    @has_permissions(manage_guild=True)
+    async def remove_profanity(self, ctx, *words):
+        with open("./data/profanity.txt", "r", encoding="utf-8") as f:
+            stored = [w.strip() for w in f.readlines()]
+
+        with open("./data/profanity.txt", "w", encoding="utf-8") as f:
+            f.write("".join([f"{w}\n" for w in stored if w not in words]))
+
+        profanity.load_censor_words_from_file("./data/profanity.txt")
+        await ctx.send("Removed Word")
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
             self.log_channel = self.bot.get_channel(1000527671597486161)
             self.mute_role = self.bot.guild.get_role(1001901207746531368)  # create a mute role
             self.bot.cogs_ready.ready_up("mod")
+
+    @Cog.listener()
+    async def on_message(self, message: Message):
+        if not message.author.bot:
+            current_prefix = await self.bot.get_prefix(message)
+            if isinstance(current_prefix, List):
+                current_prefix = current_prefix[2]
+            if not str(message.content).startswith(str(current_prefix)):
+                if profanity.contains_profanity(message.content):
+                    await message.delete()
+                    await message.channel.send("You can't use that word here.")
 
 
 def setup(bot):
