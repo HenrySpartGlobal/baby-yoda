@@ -20,7 +20,7 @@ IGNORE_EXCEPTIONS = (CommandNotFound, BadArgument)
 
 
 def get_prefix(bot, message):
-    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildID = ?", message.guild.id)
+    prefix = db.field("SELECT Prefix FROM guilds WHERE GuildId = ?", message.guild.id)
     return when_mentioned_or(prefix)(bot, message)
 
 
@@ -59,6 +59,12 @@ class Bot(BotBase):
 
         print("set up complete")
 
+    def update_db(self):
+        db.multiexec("INSERT OR IGNORE INTO guilds (GuildId) VALUES (?)",
+                     ((guild.id,) for guild in self.guilds))
+
+        db.commit()
+
     def run(self, version):
         self.VERSION = version
 
@@ -84,6 +90,7 @@ class Bot(BotBase):
         await self.stdout.send("Rules")
 
     async def on_connect(self):
+        self.update_db()
         print("Baby Yoda has Connected")
 
     async def on_disconnect(self):
@@ -105,12 +112,13 @@ class Bot(BotBase):
 
         elif isinstance(exception, CommandOnCooldown):
             await context.send(
-                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds",  delete_after=10)
+                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds",
+                delete_after=10)
 
         elif hasattr(exception, "original"):
 
             if isinstance(exception.original, Forbidden):
-                await context.send("I don't have permissions to do that",  delete_after=10)
+                await context.send("I don't have permissions to do that", delete_after=10)
 
             else:
                 raise exception.original
