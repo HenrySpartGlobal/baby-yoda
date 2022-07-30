@@ -2,6 +2,7 @@ from asyncio import sleep
 from glob import glob
 from discord import Intents
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from better_profanity import profanity
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
 from discord.errors import Forbidden
@@ -10,6 +11,8 @@ from discord.ext.commands import Context
 from discord.ext.commands import when_mentioned_or
 
 from ..db import db
+
+profanity.load_censor_words_from_file("./data/profanity.txt")
 
 OWNER_IDS = [135811207645888515]
 COGS = [path.split("/")[-1][:-3] for path in glob("./lib/cogs/*.py")]
