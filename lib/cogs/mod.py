@@ -103,7 +103,7 @@ class Mod(Cog):
     @command(name="mute")
     @bot_has_permissions(manage_roles=True)
     @has_permissions(manage_roles=True, manage_guild=True)
-    async def mute_members(self, ctx, targets: Greedy[Member], hours: Optional[int], *,
+    async def mute_members(self, ctx, targets: Greedy[Member], minutes: Optional[int], *,
                            reason: Optional[str] = "No reason provided."):
         if not len(targets):
             await ctx.send("One or more required arguments are missing.")
@@ -116,7 +116,7 @@ class Mod(Cog):
                     if ctx.guild.me.top_role.position > target.top_role.position:
                         roles_ids = ",".join([str(r.id) for r in target.roles])
                         end_time = datetime.utcnow() + timedelta(
-                            seconds=hours * 60) if hours else None  # seconds=hours*3600 for hours, minutes *60
+                            seconds=minutes * 60) if minutes else None  # seconds=minutes*3600 for minutes, minutes *60
 
                         db.execute("INSERT INTO mutes VALUES (?, ?, ?)", target.id, roles_ids,
                                    getattr(end_time, "isoformat", lambda: None)())
@@ -128,7 +128,7 @@ class Mod(Cog):
 
                         fields = [("Member", f"{target.name} AKA {target.display_name}", False),
                                   ("Muted by", ctx.author.display_name, False),
-                                  ("Duration", f"{hours:,} minutes(s)" if hours else "Indefinite", False),
+                                  ("Duration", f"{minutes:,} minutes(s)" if minutes else "Indefinite", False),
                                   ("Reason", reason, False)]
 
                         for name, value, inline in fields:
@@ -136,7 +136,7 @@ class Mod(Cog):
 
                         await self.log_channel.send(embed=embed)
 
-                        if hours:
+                        if minutes:
                             unmutes.append(target)
 
                     else:
@@ -147,7 +147,7 @@ class Mod(Cog):
 
             await ctx.send("Mute Complete")
             if len(unmutes):
-                await sleep(hours)
+                await sleep(minutes)
                 await self.unmute(ctx, targets)
 
     @mute_members.error
@@ -215,21 +215,21 @@ class Mod(Cog):
 
     @command(name="profanity", aliases=["curse", "swears"])
     @has_permissions(manage_guild=True)
-    async def add_profanity(self, ctx, *words):
+    async def add_profanity(self, ctx, *word):
         with open("./data/profanity.txt", "a", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in words]))
+            f.write("".join([f"{w}\n" for w in word]))
 
         profanity.load_censor_words_from_file("./data/profanity.txt")
         await ctx.send("Word Added")
 
     @command(name="delprofanity", aliases=["delcurse", "delswears"])
     @has_permissions(manage_guild=True)
-    async def remove_profanity(self, ctx, *words):
+    async def remove_profanity(self, ctx, *word):
         with open("./data/profanity.txt", "r", encoding="utf-8") as f:
             stored = [w.strip() for w in f.readlines()]
 
         with open("./data/profanity.txt", "w", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in stored if w not in words]))
+            f.write("".join([f"{w}\n" for w in stored if w not in word]))
 
         profanity.load_censor_words_from_file("./data/profanity.txt")
         await ctx.send("Removed Word")
