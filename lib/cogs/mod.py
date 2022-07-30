@@ -251,13 +251,13 @@ class Mod(Cog):
                     and (datetime.utcnow() - m.created_at).seconds < 30)
 
         if not message.author.bot:
-            if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 3:
+            if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 10:
                 await message.channel.send("Do not spam mentions!", delete_after=10)
                 # mute someone for 15 seconds after they @ someone 3 times in 1 minute
-                unmutes = await self.mute_members(message, [message.author], 15, reason="Mention Spam")
+                unmutes = await self.mute_members(message, [message.author], 1, reason="Mention Spam")
 
                 if len(unmutes):
-                    await sleep(15)
+                    await sleep(2)
                     await self.unmute_members(message.guild, [message.author])
                 # await self.kick_members(message, [message.author], reason="Mention Spam") Kicks member on mentioning someone 3 times in 1 minute
 
