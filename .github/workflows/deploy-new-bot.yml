@@ -77,11 +77,11 @@ jobs:
           echo '###### Installing Discord Ext Menus ######'
           pip install -U git+https://github.com/Rapptz/discord-ext-menus
           echo '###### Installing Ap Scheduler ######'
-          pip install apscheduler
+          pip install apscheduler==3.9.1
           echo '###### Installing Discord.py ######'
           pip install discord.py==1.7.3
           echo '###### Installing Better Profanity ######'
-          pip install better_profanity
+          pip install better_profanity==0.7.0
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
