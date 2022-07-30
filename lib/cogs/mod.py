@@ -2,6 +2,7 @@ from asyncio import sleep
 from datetime import datetime, timedelta
 from typing import Optional, List
 import discord
+from re import search
 from better_profanity import profanity
 from discord import Embed, Member, Message
 from discord.ext.commands import Cog, Greedy, cooldown, BucketType
@@ -14,6 +15,12 @@ from ..db import db
 class Mod(Cog):
     def __init__(self, bot):
         self.bot = bot
+
+        # regex to find if a message contains a link
+        self.url_regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+
+        # list of channel ids that are not allowed links
+        self.no_links = ()
 
     @command(name="kick")
     @bot_has_permissions(kick_members=True)
@@ -250,7 +257,11 @@ class Mod(Cog):
             if not str(message.content).startswith(str(current_prefix)):
                 if profanity.contains_profanity(message.content):
                     await message.delete()
-                    await message.channel.send("You can't use that word here.")
+                    await message.channel.send("You can't use that word here.", delete_after=10)
+
+                elif message.channel.id in self.no_links and search(self.url_regex, message.content):
+                    await message.delete()
+                    await message.channel.send("No links allowed here.", delete_after=10)
 
 
 def setup(bot):
