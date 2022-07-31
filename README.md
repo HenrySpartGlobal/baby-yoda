@@ -8,11 +8,11 @@ The bot does what most popular bots do. Nothing special. I created it to be used
 Mostly, because it's fun and I enjoy it. But my favourite best part is - The Discord bot is hosted on a Vultr instance (an online VPS service), that is provisioned with terraform and Github actions for a seamless CI/CD experience. Once new code is merged into the main branch, it will automatically be deployed to the live bot within 1 minute. 
 
 ### Server Specs:
-CPU: 1 CPU (AMD EPYC)
-RAM: 1024MB
-Storage: 25GB SSD
-OS: Ubuntu 22.04 x64
-Region: London
+- CPU: 1 CPU (AMD EPYC)
+- RAM: 1024MB
+- Storage: 25GB SSD
+- OS: Ubuntu 22.04 x64
+- Region: London
 
 List Functionalities: 
 
