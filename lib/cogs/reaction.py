@@ -1,16 +1,16 @@
-# allow people to have only 1 specific role at a time
+# allow people to have multiple roles
 
 from discord.ext.commands import Cog
 
 # id of emoji: id of the role
 colours = {
-    "🟢": 1003072600303480892,
-    "⚪": 1003072657870295130,
-    "🟠": 1003072721401434193
+    "🔵": 1003226911016755240,
+    "🔴": 1003226952997539922,
+    "🟣": 1003226872047485027
 }
 
 
-class Reactions(Cog):
+class Reaction(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,9 +18,9 @@ class Reactions(Cog):
     async def on_ready(self):
         if not self.bot.ready:
             self.reaction_message = await self.bot.get_channel(1003070428614496378).fetch_message(
-                1003070709842595890)  # channel, and message to look at
+                1003226345435836446)  # channel, and message to look for
             print(self.reaction_message.content)
-            self.bot.cogs_ready.ready_up("reactions")
+            self.bot.cogs_ready.ready_up("reaction")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -38,4 +38,4 @@ class Reactions(Cog):
 
 
 def setup(bot):
-    bot.add_cog(Reactions(bot))
+    bot.add_cog(Reaction(bot))
