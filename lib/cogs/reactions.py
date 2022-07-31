@@ -60,7 +60,8 @@ class Reactions(Cog):
 
             self.polls.append((message.channel.id, message.id))
 
-            self.bot.scheduler.add_job(self.complete_poll, "date", run_date=datetime.now() + timedelta(seconds=hours),
+            self.bot.scheduler.add_job(self.complete_poll, "date",
+                                       run_date=datetime.now() + timedelta(seconds=hours * 3600),
                                        args=[message.channel.id, message.id])
 
     async def complete_poll(self, channel_id, message_id):
