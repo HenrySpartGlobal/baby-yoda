@@ -19,8 +19,9 @@ class Mod(Cog):
         # regex to find if a message contains a link
         self.url_regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
 
-        # list of channel ids that are not allowed links
+        # list of channel ids that are not allowed links or images
         self.no_links = ()
+        self.no_images = ()
 
     async def kick_members(self, message, targets, reason):
         for target in targets:
@@ -274,6 +275,10 @@ class Mod(Cog):
                 elif message.channel.id in self.no_links and search(self.url_regex, message.content):
                     await message.delete()
                     await message.channel.send("No links allowed here.", delete_after=10)
+
+                elif message.channel.id in self.no_images and any([hasattr(a, "width") for a in message.attachments]):
+                    await message.delete()
+                    await message.channel.send("You can't send images here.")
 
 
 def setup(bot):
