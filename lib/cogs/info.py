@@ -1,9 +1,9 @@
 from datetime import datetime
+from typing import Optional
 
+from discord import Embed, Member
 from discord.ext.commands import Cog
 from discord.ext.commands import command
-from discord import Embed, Member
-from typing import Optional
 
 
 class Info(Cog):
@@ -18,7 +18,6 @@ class Info(Cog):
                       colour=target.colour,
                       timestamp=datetime.utcnow())
         embed.set_thumbnail(url=target.avatar_url)
-        # embed.set_thumbnail(url=ctx.guild.icon_url) use icon of the discord server
 
         fields = [("Name", str(target), True),
                   ("ID", target.id, True),

@@ -1,12 +1,13 @@
 from asyncio import sleep
 from datetime import datetime, timedelta
-from typing import Optional, List
-import discord
 from re import search
+from typing import Optional, List
+
+import discord
 from better_profanity import profanity
 from discord import Embed, Member, Message
-from discord.ext.commands import Cog, Greedy, cooldown, BucketType
 from discord.ext.commands import CheckFailure
+from discord.ext.commands import Cog, Greedy, cooldown, BucketType
 from discord.ext.commands import command, has_permissions, bot_has_permissions
 
 from ..db import db
@@ -17,7 +18,9 @@ class Mod(Cog):
         self.bot = bot
 
         # regex to find if a message contains a link
-        self.url_regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+        self.url_regex = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(" \
+                         r"\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".," \
+                         r"<>?«»“”‘’])) "
 
         # list of channel ids that are not allowed links or images
         self.no_links = ()
@@ -47,7 +50,7 @@ class Mod(Cog):
     @has_permissions(kick_members=True)
     async def kick_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.", delete_after=3)
+            await ctx.send("One or more required arguments are missing.", delete_after=10)
 
         else:
             await self.kick_members(ctx.message, targets, reason)
@@ -56,7 +59,7 @@ class Mod(Cog):
     @kick_command.error
     async def kick_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Nice try, you don't have permissions for that.", delete_after=5)
+            await ctx.send("Nice try, you don't have permissions for that.", delete_after=10)
 
     async def ban_members(self, message, targets, reason):
         for target in targets:
@@ -82,7 +85,7 @@ class Mod(Cog):
     @has_permissions(ban_members=True)
     async def ban_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided"):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing", delete_after=5)
+            await ctx.send("One or more required arguments are missing", delete_after=10)
 
         else:
             await self.ban_members(ctx.message, targets, reason)
@@ -96,7 +99,7 @@ class Mod(Cog):
     @command(name="clear", aliases=["purge", "delete"])
     @bot_has_permissions(manage_messages=True)
     @has_permissions(manage_messages=True)
-    async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 3):
+    async def clear_messages(self, ctx, targets: Greedy[Member], limit: Optional[int] = 3):  # default amount to clear
         def _check(message):
             return not len(targets) or message.author in targets
 
@@ -104,7 +107,7 @@ class Mod(Cog):
             await ctx.message.delete()
             deleted = await ctx.channel.purge(limit=limit, check=_check)
 
-            await ctx.send(f"Purging last {len(deleted):,} message(s).", delete_after=5)
+            await ctx.send(f"\:white_check_mark: Purging last {len(deleted):,} message(s).", delete_after=10)
 
     async def mute_members(self, message, targets, minutes, reason):
         unmutes = []
@@ -144,7 +147,7 @@ class Mod(Cog):
     async def mute_command(self, ctx, targets: Greedy[Member], minutes: Optional[int], *,
                            reason: Optional[str] = "No reason provided."):
         if not len(targets):
-            await ctx.send("One or more required arguments are missing.")
+            await ctx.send("One or more required arguments are missing.", delete_after=10)
 
         else:
             unmutes = await self.mute_members(ctx.message, targets, minutes, reason)
@@ -156,7 +159,7 @@ class Mod(Cog):
     @mute_command.error
     async def mute_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform that task.")
+            await ctx.send("Insufficient permissions to perform that task.", delete_after=10)
 
     async def unmute_members(self, guild, targets, reason="Mute time expired."):
         for target in targets:
@@ -184,7 +187,7 @@ class Mod(Cog):
     @has_permissions(manage_roles=True, manage_guild=True)
     async def unmute_command(self, ctx, targets: Greedy[Member], *, reason: Optional[str] = "No reason provided."):
         if not len(targets):
-            await ctx.send("One or more required arguments is missing.")
+            await ctx.send("One or more required arguments is missing.", delete_after=10)
 
         else:
             await self.unmute_members(ctx, targets, reason=reason)
@@ -244,17 +247,18 @@ class Mod(Cog):
             self.mute_role = self.bot.guild.get_role(1001901207746531368)  # create a mute role
             self.bot.cogs_ready.ready_up("mod")
 
+    # anti spam / auto mod
     @Cog.listener()
     async def on_message(self, message: Message):
         def _check(m):
             return (m.author == message.author
                     and len(m.mentions)
-                    and (datetime.utcnow() - m.created_at).seconds < 2) # in what time period
+                    and (datetime.utcnow() - m.created_at).seconds < 2)  # in what time period
 
         if not message.author.bot:
-            if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 15: # @ count
+            if len(list(filter(lambda m: _check(m), self.bot.cached_messages))) >= 15:  # @ count
                 await message.channel.send("Do not spam mentions!", delete_after=10)
-                # mute someone for 15 seconds after they @ someone 3 times in 1 minute
+                # mute someone for 15 seconds after they @ someone 3 times in 1 minute (currently disabled)
                 # mute length
                 unmutes = await self.mute_members(message, [message.author], 1, reason="Mention Spam")
 
