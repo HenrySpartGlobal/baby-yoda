@@ -19,6 +19,7 @@ class Reactions(Cog):
             }
             self.reaction_message = await self.bot.get_channel(1003070428614496378).fetch_message(
                 1003070709842595890)  # channel, and message to look at needs to be set, or it will error
+            # find a random channel/message to set this too
             print(self.reaction_message.content)
             self.bot.cogs_ready.ready_up("reactions")
 
