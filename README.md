@@ -7,27 +7,27 @@ Hosted on a Vultr instance provisioned and delivered with terraform and Github a
 List Functionalities: 
 
 ### Admin features:
-    - Custom command prefixes (+ ! etc)
-    - Logging member and message updates
-    - Getting user and server information (time joined, time of discord account creation etc)
-    - Kicking/banning and unbanning members
-    - Clearing messages
-    - Muting/unmuting members
-    - Countering profanity
-    - Removing links and images
-    - Anti-spam  / Automod
-    - Assigning roles with reaction
-    - Assigning roles on level up
-    - Help command - Displays all commands available
-    - Blacklisting - Disable individual members from using commands
+- Custom command prefixes (+ ! etc)
+- Logging member and message updates
+- Getting user and server information (time joined, time of discord account creation etc)
+- Kicking/banning and unbanning members
+- Clearing messages
+- Muting/unmuting members
+- Countering profanity
+- Removing links and images
+- Anti-spam  / Automod
+- Assigning roles with reaction
+- Assigning roles on level up
+- Help command - Displays all commands available
+- Blacklisting - Disable individual members from using commands
     
 ### Bot features     
-    - Bot Stats command which shows -
-        - Uptime
-        - CPU Time
-        - Bot Version
-        - Memory Usage
-        - Users
+- Bot Stats command which shows -
+    - Uptime
+    - CPU Time
+    - Bot Version
+    - Memory Usage
+    - Users
 - Welcoming new members
 - Starboard
 - Polls
