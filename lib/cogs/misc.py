@@ -1,5 +1,5 @@
-from discord.ext.commands import Cog
 from discord.ext.commands import CheckFailure
+from discord.ext.commands import Cog
 from discord.ext.commands import command, has_permissions
 
 from ..db import db
@@ -22,7 +22,10 @@ class Misc(Cog):
     @change_prefix.error
     async def change_prefix_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("You're not important enough to change that <:sadpeepocat:675030215214366781> - You need manage server permissions. ", delete_after=15)
+            await ctx.send(
+                "You're not important enough to change that - You need manage "
+                "server permissions. ",
+                delete_after=15)
 
     @Cog.listener()
     async def on_ready(self):

@@ -1,11 +1,11 @@
 from random import choice
 from random import randint
 
-from discord import Embed
-from discord.ext.commands import cooldown
 from aiohttp import request
+from discord import Embed
 from discord.ext.commands import Cog, BucketType
 from discord.ext.commands import command
+from discord.ext.commands import cooldown
 
 
 class Fun(Cog):
@@ -51,7 +51,7 @@ class Fun(Cog):
     @cooldown(3, 60, BucketType.user)
     async def who_asked(self, ctx):
         await ctx.send(
-            f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://tenor.com/view/didnt-ask-plus-youre-female-gif-20548291', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
+            f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
 
     @command(name="kekw", description="A link to the infamous baby yoda kekw video")
     # cooldown - 3 allow in 1 minute
@@ -60,15 +60,9 @@ class Fun(Cog):
         await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
         await ctx.send("<:link_mrcrabs:793488850235555920>")
 
-    # @command(name="cageandre", aliases=["muteandre", "andre", "lockandre"])
-    # # cooldown - 1 allowed 86400 seconds (1 day) for everyone
-    # @cooldown(1, 86400, BucketType.guild)
-    # async def mute_andre(self, ctx):
-    #     await ctx.send("https://www.youtube.com/watch?v=h1MtnCYQUU0")
-
     # Animal facts - +fact {animal}
     @command(name="fact", aliases=["facts"],
-             description="Random fact on an animal. Supported animals: Dogs, Cats, Pandas, Foxs, Birds and Koalas")
+             description="Random facts on: Dogs, Cats, Pandas, Foxs, Birds and Koalas")
     # cooldown - 3 allow in 1 minute for the entire server
     @cooldown(3, 60, BucketType.guild)
     async def animal_fact(self, ctx, animal: str):
@@ -98,7 +92,7 @@ class Fun(Cog):
         else:
             await ctx.send(f"I can't find any facts on {animal.title()}")
 
-    @command(name="stock", aliases=["price"], description="Get the price of a stock")
+    @command(name="stock", aliases=["price", "stocks"], description="Get the price of a stock")
     async def stock_price(self, ctx, stock: str):
         if (stock := stock.upper()) in stock:
             stock_url = f"https://cryptingup.com/api/assets/{stock}"

@@ -1,10 +1,10 @@
 from typing import Optional
 
 from discord import Embed
-from discord.utils import get
-from discord.ext.menus import MenuPages, ListPageSource
 from discord.ext.commands import Cog
 from discord.ext.commands import command
+from discord.ext.menus import MenuPages, ListPageSource
+from discord.utils import get
 
 
 def syntax(command):
@@ -30,7 +30,8 @@ class HelpMenu(ListPageSource):
         offset = (menu.current_page * self.per_page) + 1
         len_data = len(self.entries)
 
-        embed = Embed(title="Help", description="Welcome to Baby Yoda help dialog", colour=self.ctx.author.colour)
+        embed = Embed(title="Help", description="Welcome to the Baby Yoda Bot help dialog",
+                      colour=self.ctx.author.colour)
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
         embed.set_footer(text=f"{offset:,} - {min(len_data, offset + self.per_page - 1):,} of {len_data:,} commands")
 

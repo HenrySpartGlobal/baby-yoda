@@ -2,7 +2,9 @@ from datetime import datetime
 
 from discord import Embed
 from discord.ext.commands import Cog
+
 from lib.db import db
+
 
 class Reactions(Cog):
     def __init__(self, bot):
@@ -12,6 +14,7 @@ class Reactions(Cog):
     async def on_ready(self):
         if not self.bot.ready:
             self.starboard_channel = self.bot.get_channel(1003340610897457162)
+            # roles
             self.colours = {
                 "🟢": self.bot.guild.get_role(1003072600303480892),
                 "⚪": self.bot.guild.get_role(1003072657870295130),
@@ -30,7 +33,7 @@ class Reactions(Cog):
             await payload.member.remove_roles(*current_colours, reason="Colour role reaction")
             await payload.member.add_roles(self.colours[payload.emoji.name], reason="Colour role reaction")
             await self.reaction_message.remove_reaction(payload.emoji, payload.member)
-
+        # starboard logic
         elif payload.emoji.name == "⭐":
             message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 

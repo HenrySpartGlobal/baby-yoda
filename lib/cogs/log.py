@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from discord import Embed, message
+from discord import Embed
 from discord.ext.commands import Cog
-from discord.ext.commands import command
 
 
 class Log(Cog):
@@ -12,7 +11,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.log_channel = self.bot.get_channel(1000527671597486161)  # get this from database for multi server
+            self.log_channel = self.bot.get_channel(1000527671597486161)
             self.bot.cogs_ready.ready_up("log")
 
     @Cog.listener()
@@ -42,7 +41,7 @@ class Log(Cog):
             await self.log_channel.send(embed=embed)
 
         if before.avatar_url != after.avatar_url:
-            embed = Embed(title="Updated Picture",
+            embed = Embed(title="Changed Display Picture",
                           description="Avatar change - New image below",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
@@ -55,7 +54,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_member_update(self, before, after):
         if before.display_name != after.display_name:
-            embed = Embed(title="Nickname changed",
+            embed = Embed(title="Changed Nickname",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
@@ -68,7 +67,7 @@ class Log(Cog):
             await self.log_channel.send(embed=embed)
 
         elif before.roles != after.roles:
-            embed = Embed(title="Role changed",
+            embed = Embed(title="Changed Role",
                           colour=after.colour,
                           timestamp=datetime.utcnow())
             embed.set_thumbnail(url=before.avatar_url)
