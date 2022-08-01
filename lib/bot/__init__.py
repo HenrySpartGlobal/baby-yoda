@@ -1,13 +1,13 @@
 from asyncio import sleep
 from glob import glob
-from discord import Intents
+
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from better_profanity import profanity
+from discord import Intents
+from discord.errors import Forbidden
 from discord.ext.commands import Bot as BotBase
 from discord.ext.commands import (CommandNotFound, BadArgument, MissingRequiredArgument, CommandOnCooldown)
-from discord.errors import Forbidden
 from discord.ext.commands import Context
-
 from discord.ext.commands import when_mentioned_or
 
 from ..db import db
@@ -63,6 +63,9 @@ class Bot(BotBase):
         db.multiexec("INSERT OR IGNORE INTO guilds (GuildId) VALUES (?)",
                      ((guild.id,) for guild in self.guilds))
 
+        db.multiexec("INSERT OR IGNORE INTO exp (UserID) VALUES (?)",
+                     ((member.id,) for guild in self.guilds for member in guild.members if not member.bot))
+
         db.commit()
 
     def run(self, version):
@@ -90,7 +93,6 @@ class Bot(BotBase):
         await self.stdout.send("Rules")
 
     async def on_connect(self):
-        self.update_db()
         print("Baby Yoda has Connected")
 
     async def on_disconnect(self):
@@ -134,6 +136,7 @@ class Bot(BotBase):
             # self.scheduler.add_job(self.channel_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
             # uncomment to send something every week
             self.scheduler.start()
+            self.update_db()
 
             # embed = Embed(title="Baby Yoda online!", description="We're live.",
             #               colour=0xFF0000, timestamp=datetime.utcnow())
