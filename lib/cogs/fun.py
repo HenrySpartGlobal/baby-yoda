@@ -45,13 +45,13 @@ class Fun(Cog):
         await ctx.message.delete()
         await ctx.send(message)
 
-    @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?"],
+    @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?", "askers"],
              description="Send a random 'No one asked' meme")
     # cooldown - 3 allow in 1 minute
     @cooldown(3, 60, BucketType.user)
     async def who_asked(self, ctx):
         await ctx.send(
-            f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://imgur.com/a/P5Yf5Xw', 'https://imgur.com/a/AYU3IrG'))}")
+            f"{choice(('https://tenor.com/view/meme-dr-fate-dc-didnt-ask-crazy-gif-16034543', 'https://tenor.com/view/miahsgifs-head-turn-spongebob-gif-19234132', 'https://cdn.discordapp.com/attachments/999416235609555126/1003783870912671804/didnt_ask.jpg', 'https://cdn.discordapp.com/attachments/999416235609555126/1003784009169518752/didnt_ask2.png'))}")
 
     @command(name="kekw", description="A link to the infamous baby yoda kekw video")
     # cooldown - 3 allow in 1 minute
