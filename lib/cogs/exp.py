@@ -12,7 +12,6 @@ class Exp(Cog):
 
     async def process_xp(self, message):
         xp, lvl, xplock = db.record("SELECT XP, Level, XPLock FROM exp WHERE UserID = ?", message.author.id)
-        print(xp, lvl, xplock)
 
         if datetime.utcnow() > datetime.fromisoformat(xplock):
             await self.add_xp(message, xp, lvl)
@@ -20,7 +19,6 @@ class Exp(Cog):
     async def add_xp(self, message, xp, lvl):
         xp_to_add = randint(5, 15)
         new_lvl = int(((xp + xp_to_add) // 42) ** 0.55)
-        print(f"{xp_to_add=} {new_lvl=}")
 
         # update db values, once level up, need to wait 2mins to get xp again
         db.execute("UPDATE exp SET XP = XP + ?, Level = ?, XPLock = ? WHERE UserID = ?", xp_to_add, new_lvl,
