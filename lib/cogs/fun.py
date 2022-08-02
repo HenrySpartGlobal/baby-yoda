@@ -108,8 +108,8 @@ class Fun(Cog):
 
     @command(name="aebe", aliases=["askaebe"], description="Send Aebe a DM regarding technical questions")
     async def ask_aebe(self, ctx, message: str):
-        aebe = ctx.guild.get_member(138707252973404160)
-        channel = self.bot.get_channel(830504420415504464)
+        aebe = ctx.guild.get_member(138707252973404160)  # aebes id
+        channel = self.bot.get_channel(830504420415504464)  # askaebe channel
         await aebe.send(f"New help request in {channel.mention}: {message}")
         await ctx.channel.send(f"Message sent to {aebe.display_name}", delete_afte=120)
         # example !aebe "Question"
