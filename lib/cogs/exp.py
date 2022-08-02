@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 from random import randint
+from typing import Optional
 
-from discord.ext.commands import Cog
+from discord import Member
+from discord.ext.commands import Cog, command
 
 from ..db import db
 
@@ -29,6 +31,30 @@ class Exp(Cog):
                 f"{message.author.mention}, you reached Level {new_lvl:,}! Get a life <:annieCheeky:590263847923744788> ")
             # await self.levelup_channel.send(f"{message.author.mention}, you reached level {new_lvl:,}! Get a life <:annieCheeky:590263847923744788> ")
             # sends to a specific channel
+
+    # show level and rank
+    @command(name="level")
+    async def display_level(self, ctx, target: Optional[Member]):
+        target = target or ctx.author
+
+        xp, level = db.record("SELECT XP, Level FROM exp WHERE UserID =?", target.id) or (None, None)
+
+        if level is not None:
+            await ctx.send(f"{target.display_name}, is level {level} with {xp:,} XP")
+        else:
+            await ctx.send(f"I am currently not tracking {target.display_name} in the experience system")
+
+    @command(name="rank")
+    async def display_rank(self, ctx, target: Optional[Member]):
+        target = target or ctx.author
+
+        ids = db.column("SELECT UserID FROM exp ORDER BY XP DESC")
+
+        try:
+            await ctx.send(f"{target.display_name} is rank {ids.index(target.id) + 1} of {len(ids)}")
+
+        except ValueError:
+            await ctx.send(f"I am currently not tracking {target.display_name} in the experience system")
 
     @Cog.listener()
     async def on_ready(self):
