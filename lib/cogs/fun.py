@@ -106,6 +106,14 @@ class Fun(Cog):
                 else:
                     await ctx.send(f"I can't find {stock}, you're making shit up.")
 
+    @command(name="aebe", aliases=["askaebe"], description="Send Aebe a DM regarding technical questions")
+    async def ask_aebe(self, ctx, message: str):
+        aebe = ctx.guild.get_member(138707252973404160)
+        channel = self.bot.get_channel(830504420415504464)
+        await aebe.send(f"New help request in {channel.mention}: {message}")
+        await ctx.channel.send(f"Message sent to {aebe.display_name}", delete_afte=120)
+        # example !aebe "Question"
+
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
