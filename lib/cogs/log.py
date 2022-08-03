@@ -11,7 +11,7 @@ class Log(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.log_channel = self.bot.get_channel(1000527671597486161)
+            self.log_channel = self.bot.get_channel(1004520092484259961)
             self.bot.cogs_ready.ready_up("log")
 
     @Cog.listener()
