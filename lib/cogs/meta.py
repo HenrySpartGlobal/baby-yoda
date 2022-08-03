@@ -13,7 +13,7 @@ class Meta(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        self.message = "watching !help | {users:,} users in {guilds:,} servers"
+        self.message = "watching !help | Grogu is watching {users:,} users in {guilds:,} servers"
         bot.scheduler.add_job(self.set, CronTrigger(second=0))
 
     @property

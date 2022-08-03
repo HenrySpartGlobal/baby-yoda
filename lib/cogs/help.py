@@ -30,7 +30,7 @@ class HelpMenu(ListPageSource):
         offset = (menu.current_page * self.per_page) + 1
         len_data = len(self.entries)
 
-        embed = Embed(title="Help", description="Welcome to the Baby Yoda Bot help dialog",
+        embed = Embed(title="Help", description="Welcome to the Baby Yoda Bot Help dialog",
                       colour=self.ctx.author.colour)
         embed.set_thumbnail(url=self.ctx.guild.me.avatar_url)
         embed.set_footer(text=f"{offset:,} - {min(len_data, offset + self.per_page - 1):,} of {len_data:,} commands")
@@ -70,7 +70,7 @@ class Help(Cog):
             await menu.start(ctx)
 
         else:
-            if (command := get(self.bot.commands, name=cmd)):
+            if command := get(self.bot.commands, name=cmd):
                 await self.cmd_help(ctx, command)
 
             else:

@@ -39,7 +39,7 @@ class Fun(Cog):
                            " below 25.", delete_after=15)
 
     # Echo example command: echo Hello World - Deletes the last message and Bot echos the message "Hello World"
-    @command(name="echo", aliases=["say"], description=" Make me echo your message")
+    @command(name="echo", aliases=["say"], description="Make me echo your message")
     # cooldown - 1 allowed every 5 seconds
     @cooldown(1, 5, BucketType.user)
     async def echo_message(self, ctx, *, message):

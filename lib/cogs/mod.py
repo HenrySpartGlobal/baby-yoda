@@ -59,7 +59,8 @@ class Mod(Cog):
     @kick_command.error
     async def kick_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Nice try, you don't have permissions for that.", delete_after=10)
+            await ctx.send("Nice try, you don't have permissions for that <:OMEGAHERNY:508729267249610779>",
+                           delete_after=10)
 
     async def ban_members(self, message, targets, reason):
         for target in targets:
@@ -94,7 +95,8 @@ class Mod(Cog):
     @ban_command.error
     async def ban_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Nice try, you don't have permissions for that.", delete_after=10)  # insert an emoji
+            await ctx.send("Nice try, you don't have permissions for that <:OMEGAHERNY:508729267249610779>",
+                           delete_after=10)  # insert an emoji
 
     @command(name="clear", aliases=["purge", "delete"])
     @bot_has_permissions(manage_messages=True)
@@ -159,7 +161,8 @@ class Mod(Cog):
     @mute_command.error
     async def mute_command_error(self, ctx, exc):
         if isinstance(exc, CheckFailure):
-            await ctx.send("Insufficient permissions to perform that task.", delete_after=10)
+            await ctx.send("Nice try, you don't have permissions for that <:OMEGAHERNY:508729267249610779>",
+                           delete_after=10)
 
     async def unmute_members(self, guild, targets, reason="Mute time expired."):
         for target in targets:
@@ -209,7 +212,7 @@ class Mod(Cog):
                                               read_messages=True)
 
         await andre.add_roles(mutedRole)
-        await ctx.send("Caged Andre 👮 - He'll be back in 5 minutes.")
+        await ctx.send("Caged Andre - He'll be back in 5 minutes <:andreTears:963839778242043914>")
 
         embed = Embed(title=f"Andre caged", colour=0xDD2222, timestamp=datetime.utcnow())
 
@@ -243,8 +246,8 @@ class Mod(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.log_channel = self.bot.get_channel(1000527671597486161)
-            self.mute_role = self.bot.guild.get_role(1001901207746531368)  # create a mute role
+            self.log_channel = self.bot.get_channel(760492361343565824)
+            self.mute_role = self.bot.guild.get_role(1004522116382724216)  # create a mute role
             self.bot.cogs_ready.ready_up("mod")
 
     # anti spam / auto mod

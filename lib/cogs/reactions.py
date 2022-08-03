@@ -20,16 +20,19 @@ class Reactions(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.starboard_channel = self.bot.get_channel(1003340610897457162)
+            self.starboard_channel = self.bot.get_channel(
+                1004518096385622096)  # testing channel starboard = 1003340610897457162
             # roles
             self.colours = {
                 "🟢": self.bot.guild.get_role(1003072600303480892),
                 "⚪": self.bot.guild.get_role(1003072657870295130),
                 "🟠": self.bot.guild.get_role(1003072721401434193)
             }
-            self.reaction_message = await self.bot.get_channel(1003070428614496378).fetch_message(
-                1003070709842595890)  # channel, and message to look at needs to be set, or it will error
+            self.reaction_message = await self.bot.get_channel(760492361343565824).fetch_message(
+                1004512871591464980)  # channel, and message to look at needs to be set, or it will error
             # find a random channel/message to set this too
+            # testing discord channel = 1003070428614496378 | messageId = 1003070709842595890
+            # baby yoda discord channel = 760492361343565824 | messageId = 1004512871591464980
             print(self.reaction_message.content)
             self.bot.cogs_ready.ready_up("reactions")
 

@@ -141,34 +141,18 @@ class Bot(BotBase):
     async def on_ready(self):
         print("Baby Yoda bot is ready")
         if not self.ready:
-            self.guild = self.get_guild(328696263568654337)
-            self.stdout = self.get_channel(999416235609555126)
+            self.guild = self.get_guild(368493278460379156)
+            self.stdout = self.get_channel(1004523022700531792)
             # self.scheduler.add_job(self.channel_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
             # uncomment to send something every week
             self.scheduler.start()
             self.update_db()
-
-            # embed = Embed(title="Baby Yoda online!", description="We're live.",
-            #               colour=0xFF0000, timestamp=datetime.utcnow())
-            # fields = [("Name", "Value", True),
-            #           ("Another field", "This field is next to the other one.", True),
-            #           ("A non-inline field", "This field will appear on it's own row.", False)]
-            # for name, value, inline in fields:
-            #     embed.add_field(name=name, value=value, inline=inline)
-            # embed.set_author(name="Henry", icon_url=self.guild.icon_url)
-            # embed.set_footer(text="This is a footer!")
-            # embed.set_thumbnail(url=self.guild.icon_url)
-            # embed.set_image(url=self.guild.icon_url)
-            # await self.stdout.send(embed=embed)
-            #
-            # await self.stdout.send(file=File("./data/images/logo.png"))
-
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
 
-            await self.stdout.send("Baby Yoda is now Online, lets go!")
+            await self.stdout.send("Baby Yoda is now Online!")
             self.ready = True
-            print(" Bot ready")
+            print("Bot ready")
 
             meta = self.get_cog("Meta")
             await meta.set()

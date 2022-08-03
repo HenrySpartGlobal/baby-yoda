@@ -19,7 +19,8 @@ class Welcome(Cog):
     async def on_member_join(self, member):
         db.execute("INSERT INTO exp (UserID) VALUES (?)", member.id)
         # Channel to public welcome
-        await self.bot.get_channel(999416235609555126).send(f"Welcome to **{member.guild.name}** {member.mention}!")
+        await self.bot.get_channel(368493278464573441).send(
+            f"Welcome to **{member.guild.name}** {member.mention}!")  # 999416235609555126 testing channel general
 
         try:
             await member.send(f"Welcome to **{member.guild.name}**!")
@@ -37,7 +38,8 @@ class Welcome(Cog):
     async def on_member_remove(self, member):
         db.execute("DELETE FROM exp WHERE UserID = ?", member.id)
         # send this to private admin channel maybe
-        await self.bot.get_channel(999416235609555126).send(f"{member.display_name} has left {member.guild.name}.")
+        await self.bot.get_channel(760492361343565824).send(
+            f"{member.display_name} has left {member.guild.name}.")  # testing channel -  999416235609555126
 
 
 def setup(bot):
