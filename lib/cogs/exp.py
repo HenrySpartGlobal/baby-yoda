@@ -91,7 +91,7 @@ class Exp(Cog):
 
     @command(name="leaderboard", aliases=["lb"])
     async def display_leaderboard(self, ctx):
-        records = db.record("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
+        records = db.records("SELECT UserID, XP, Level FROM exp ORDER BY XP DESC")
 
         menu = MenuPages(source=HelpMenu(ctx, records),
                          clear_reactions_after=True,
