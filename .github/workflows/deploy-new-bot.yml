@@ -82,6 +82,8 @@ jobs:
           pip install discord.py==1.7.3
           echo '###### Installing Better Profanity ######'
           pip install better_profanity==0.7.0
+          echo '###### Installing psutil ######'
+          pip3.10 install psutil
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
