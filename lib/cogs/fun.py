@@ -108,9 +108,9 @@ class Fun(Cog):
                     await ctx.send(f"I can't find {stock}, you're making shit up.")
 
     @command(name="aebe", aliases=["askaebe"], description="Send Aebe a DM regarding technical questions")
-    async def ask_aebe(self, ctx, request: str):
-        aebe = ctx.guild.get_member(1001955380160647188)  # aebes id
-        channel = self.bot.get_channel(1003340610897457162)  # askaebe channel
+    async def ask_aebe(self, ctx):
+        aebe = ctx.guild.get_member(138707252973404160)  # aebes id
+        channel = self.bot.get_channel(830504420415504464)  # askaebe channel
         embed = Embed(title=f"New AskAebe request!", colour=ctx.author.colour, timestamp=datetime.utcnow())
         embed.set_thumbnail(url=ctx.message.author.avatar_url)
         embed.add_field(name="Source", value=f"New help request in {channel.mention}", inline=False)
