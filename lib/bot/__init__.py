@@ -170,6 +170,9 @@ class Bot(BotBase):
             self.ready = True
             print(" Bot ready")
 
+            meta = self.get_cog("Meta")
+            await meta.set()
+
         else:
             print("Bot Reconnected")
 
