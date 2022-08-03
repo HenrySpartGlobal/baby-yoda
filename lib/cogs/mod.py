@@ -201,7 +201,7 @@ class Mod(Cog):
     @cooldown(1, 10800, BucketType.guild)
     async def mute(self, ctx):
         guild = ctx.guild
-        andre = ctx.guild.get_member(1001955380160647188)
+        andre = ctx.guild.get_member(600461101788037163)
         mutedRole = discord.utils.get(guild.roles, name="Muted")
 
         if not mutedRole:
