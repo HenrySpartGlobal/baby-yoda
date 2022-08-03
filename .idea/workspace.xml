@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e47d8dd-6070-49fe-8ff2-be17d0f0ff7e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    <list default="true" id="bb725c9f-85dc-4545-9103-2fd01ede3b82" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy-new-bot.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy-new-bot.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/update-bot.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/update-bot.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/db/build.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data/db/build.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/exp.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/exp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/fun.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/fun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/help.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/help.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/info.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/info.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/meta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/misc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/mod.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/reactions.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/reactions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cogs/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/welcome.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/disabled_cogs/reaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/disabled_cogs/reaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/baby-yoda/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/baby-yoda/main.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/baby-yoda/terraform.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/baby-yoda/terraform.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/baby-yoda/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/baby-yoda/variables.tf" afterDir="false" />
     </list>
+    <list id="3a9748d2-9d6e-4f6a-983c-2e42589bc7ad" name="none commits" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2CrXAit68PlbQ4eptsCEV8Xkfr6" />
+  <component name="ProjectId" id="2CqZtDfIb3HvZk8cq5AebIF9fgi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -25,7 +48,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Project",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TF_FMT": "false",
+    "TODO_SCOPE": "All Places",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
   }
@@ -33,12 +59,28 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5e47d8dd-6070-49fe-8ff2-be17d0f0ff7e" name="Changes" comment="" />
-      <created>1659561535190</created>
+      <changelist id="bb725c9f-85dc-4545-9103-2fd01ede3b82" name="Changes" comment="" />
+      <changelist id="3a9748d2-9d6e-4f6a-983c-2e42589bc7ad" name="none commits" comment="" />
+      <created>1659532289709</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1659561535190</updated>
+      <updated>1659532289709</updated>
     </task>
+    <task id="LOCAL-00001" summary="setting activies with a command">
+      <created>1659560129534</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1659560129534</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="setting activies with a command" />
+    <option name="LAST_COMMIT_MESSAGE" value="setting activies with a command" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>
