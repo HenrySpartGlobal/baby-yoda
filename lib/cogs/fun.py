@@ -1,3 +1,4 @@
+from datetime import datetime
 from random import choice
 from random import randint
 
@@ -107,11 +108,16 @@ class Fun(Cog):
                     await ctx.send(f"I can't find {stock}, you're making shit up.")
 
     @command(name="aebe", aliases=["askaebe"], description="Send Aebe a DM regarding technical questions")
-    async def ask_aebe(self, ctx, message: str):
+    async def ask_aebe(self, ctx):
         aebe = ctx.guild.get_member(138707252973404160)  # aebes id
         channel = self.bot.get_channel(830504420415504464)  # askaebe channel
-        await aebe.send(f"New help request in {channel.mention}: {message}")
-        await ctx.channel.send(f"Message sent to {aebe.display_name}", delete_afte=120)
+        embed = Embed(title=f"New AskAebe request!", colour=ctx.author.colour, timestamp=datetime.utcnow())
+        embed.set_thumbnail(url=ctx.message.author.avatar_url)
+        embed.add_field(name="Source", value=f"New help request in {channel.mention}", inline=False)
+        embed.add_field(name="Jump to message", value=f"[Jump]({ctx.message.jump_url})", inline=False)
+
+        await aebe.send(embed=embed)
+        await ctx.channel.send(f"Message sent to {aebe.display_name}", delete_after=120)
         # example !aebe "Question"
 
     @Cog.listener()

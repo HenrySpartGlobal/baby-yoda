@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0176dd77-ec25-4665-8997-81767173dd41" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2CXmck4FKzuPNjpf9YTfYdTYd1E" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TF_FMT&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Henry/Documents/GitHub/baby-yoda/data/images&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Henry\Documents\GitHub\baby-yoda\data\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Henry\Documents\GitHub\baby-yoda\lib\disabled_cogs" />
+      <recent name="C:\Users\Henry\Documents\GitHub\baby-yoda\lib\cogs" />
+      <recent name="C:\Users\Henry\Documents\GitHub\baby-yoda\test" />
+      <recent name="C:\Users\Henry\Documents\GitHub\baby-yoda" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0176dd77-ec25-4665-8997-81767173dd41" name="Changes" comment="" />
+      <created>1658957384825</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658957384825</updated>
+    </task>
+    <task id="LOCAL-00001" summary="FINALLY HAVE MUTE/UNMUTE WORKING">
+      <created>1658958033979</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1658958033979</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Mute and Unmute andre after 5 minutes, once every 3 hours">
+      <created>1659135995504</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1659135995504</updated>
+    </task>
+    <task id="LOCAL-00003" summary="5 minutes">
+      <created>1659136102041</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1659136102041</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Countering profanity with a command and txt file">
+      <created>1659143078972</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1659143078972</updated>
+    </task>
+    <task id="LOCAL-00005" summary="automatically commit prefix to the db and fix main baby yoda bot">
+      <created>1659144323637</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1659144323637</updated>
+    </task>
+    <task id="LOCAL-00006" summary="minor updates and changes">
+      <created>1659146490810</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1659146490810</updated>
+    </task>
+    <task id="LOCAL-00007" summary="test command and code updates">
+      <created>1659147013749</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1659147013749</updated>
+    </task>
+    <task id="LOCAL-00008" summary="test command and code updates">
+      <created>1659147957457</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1659147957457</updated>
+    </task>
+    <task id="LOCAL-00009" summary="automatically remove links in certain channels">
+      <created>1659213057479</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1659213057479</updated>
+    </task>
+    <task id="LOCAL-00010" summary="automatically mute someone after spamming @ing 3 times in 30seconds">
+      <created>1659217624829</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1659217624829</updated>
+    </task>
+    <task id="LOCAL-00011" summary="make it impossible to trigger auto mute with @ in baby yoda server - we don't need it">
+      <created>1659217758666</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1659217758666</updated>
+    </task>
+    <task id="LOCAL-00012" summary="make it impossible to trigger auto mute with @ in baby yoda server - we don't need it">
+      <created>1659217979870</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1659217979870</updated>
+    </task>
+    <task id="LOCAL-00013" summary="wip working with reactions">
+      <created>1659218877373</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1659218877373</updated>
+    </task>
+    <task id="LOCAL-00014" summary="wip working with reactions">
+      <created>1659220878869</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1659220878869</updated>
+    </task>
+    <task id="LOCAL-00015" summary="simple colour system role react">
+      <created>1659222297184</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1659222297184</updated>
+    </task>
+    <task id="LOCAL-00016" summary="finish role reaction">
+      <created>1659258751111</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1659258751111</updated>
+    </task>
+    <task id="LOCAL-00017" summary="disable role reaction for baby yoda server">
+      <created>1659259132172</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1659259132172</updated>
+    </task>
+    <task id="LOCAL-00018" summary="reactions for 1 role at a time">
+      <created>1659284771073</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1659284771073</updated>
+    </task>
+    <task id="LOCAL-00019" summary="create a starboard">
+      <created>1659288806930</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1659288806931</updated>
+    </task>
+    <task id="LOCAL-00020" summary="merge starboard and reactions into 1">
+      <created>1659289618985</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1659289618985</updated>
+    </task>
+    <task id="LOCAL-00021" summary="edit">
+      <created>1659289652060</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1659289652060</updated>
+    </task>
+    <task id="LOCAL-00022" summary="cleaning up the code">
+      <created>1659303514246</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1659303514246</updated>
+    </task>
+    <task id="LOCAL-00023" summary="create a simple poll command">
+      <created>1659307547755</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1659307547755</updated>
+    </task>
+    <task id="LOCAL-00024" summary="change to hour">
+      <created>1659307636025</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1659307636025</updated>
+    </task>
+    <task id="LOCAL-00025" summary="simple xp system">
+      <created>1659386570679</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1659386570679</updated>
+    </task>
+    <task id="LOCAL-00026" summary="working exp and guilds auto db update">
+      <created>1659388478960</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1659388478960</updated>
+    </task>
+    <task id="LOCAL-00027" summary="remove people from database when they leave">
+      <created>1659389102356</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1659389102356</updated>
+    </task>
+    <task id="LOCAL-00028" summary="clean up">
+      <created>1659391240225</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1659391240225</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Display user XP and rank">
+      <created>1659472552314</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1659472552314</updated>
+    </task>
+    <task id="LOCAL-00030" summary="create ask aebe command">
+      <created>1659477170985</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1659477170985</updated>
+    </task>
+    <task id="LOCAL-00031" summary="create ask aebe command">
+      <created>1659477679566</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1659477679566</updated>
+    </task>
+    <task id="LOCAL-00032" summary="wip leaderboard command">
+      <created>1659514039435</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1659514039435</updated>
+    </task>
+    <task id="LOCAL-00033" summary="programmer btw">
+      <created>1659514252004</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1659514252004</updated>
+    </task>
+    <task id="LOCAL-00034" summary="aebe">
+      <created>1659530946654</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1659530946654</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="minor updates and changes" />
+    <MESSAGE value="test command and code updates" />
+    <MESSAGE value="automatically remove links in certain channels" />
+    <MESSAGE value="automatically mute someone after spamming @ing 3 times in 30seconds" />
+    <MESSAGE value="make it impossible to trigger auto mute with @ in baby yoda server - we don't need it" />
+    <MESSAGE value="wip working with reactions" />
+    <MESSAGE value="simple colour system role react" />
+    <MESSAGE value="finish role reaction" />
+    <MESSAGE value="disable role reaction for baby yoda server" />
+    <MESSAGE value="reactions for 1 role at a time" />
+    <MESSAGE value="create a starboard" />
+    <MESSAGE value="merge starboard and reactions into 1" />
+    <MESSAGE value="edit" />
+    <MESSAGE value="cleaning up the code" />
+    <MESSAGE value="create a simple poll command" />
+    <MESSAGE value="change to hour" />
+    <MESSAGE value="simple xp system" />
+    <MESSAGE value="working exp and guilds auto db update" />
+    <MESSAGE value="remove people from database when they leave" />
+    <MESSAGE value="clean up" />
+    <MESSAGE value="Display user XP and rank" />
+    <MESSAGE value="create ask aebe command" />
+    <MESSAGE value="wip leaderboard command" />
+    <MESSAGE value="programmer btw" />
+    <MESSAGE value="aebe" />
+    <option name="LAST_COMMIT_MESSAGE" value="aebe" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+</project>
