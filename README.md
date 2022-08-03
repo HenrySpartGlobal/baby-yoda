@@ -1,5 +1,4 @@
-## Work in progress 
-Baby Yoda Discord Bot
+# Baby Yoda Discord Bot
 
 The bot does what most popular bots do. Nothing special. I created it to be used on my personal discord server with my friends. 
 
