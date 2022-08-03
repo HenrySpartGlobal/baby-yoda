@@ -141,8 +141,8 @@ class Bot(BotBase):
     async def on_ready(self):
         print("Baby Yoda bot is ready")
         if not self.ready:
-            self.guild = self.get_guild(328696263568654337)
-            self.stdout = self.get_channel(999416235609555126)
+            self.guild = self.get_guild(368493278460379156)
+            self.stdout = self.get_channel(1004523022700531792)
             # self.scheduler.add_job(self.channel_reminder, CronTrigger(day_of_week=0, hour=12, minute=0, second=0))
             # uncomment to send something every week
             self.scheduler.start()
