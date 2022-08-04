@@ -109,7 +109,7 @@ class Mod(Cog):
             await ctx.message.delete()
             deleted = await ctx.channel.purge(limit=limit, check=_check)
 
-            await ctx.send(f"\:white_check_mark: Purging last {len(deleted):,} message(s).", delete_after=10)
+            await ctx.send(f"✅ Purging last {len(deleted):,} message(s).", delete_after=10)
 
     async def mute_members(self, message, targets, minutes, reason):
         unmutes = []
