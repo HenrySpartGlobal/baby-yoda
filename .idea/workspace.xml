@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ad7a63d-bfce-4c6f-88e2-4b59c3ce4835" name="Changes" comment="">
+    <list default="true" id="5ad7a63d-bfce-4c6f-88e2-4b59c3ce4835" name="Changes" comment="add didn't ask command">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/bot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bot/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/mod.py" afterDir="false" />
     </list>
@@ -27,6 +28,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="2CIYAJ215h52YwN9RH4ShD5a7Gf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -112,7 +114,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add greet command" />
