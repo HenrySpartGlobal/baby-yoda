@@ -193,7 +193,7 @@ class Mod(Cog):
             await ctx.send("One or more required arguments is missing.", delete_after=10)
 
         else:
-            await self.unmute_members(ctx, targets, reason=reason)
+            await self.unmute_members(ctx.guild, targets, reason=reason)
 
     @command(name="andre", aliases=["cageandre", "muteandre", "cage"], description="Mutes Andre.")
     @bot_has_permissions(manage_roles=True)
