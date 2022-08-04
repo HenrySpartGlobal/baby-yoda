@@ -1,7 +1,7 @@
 from asyncio import sleep
 from datetime import datetime, timedelta
 from re import search
-from typing import Optional, List
+from typing import Optional
 
 import discord
 # from better_profanity import profanity
@@ -198,11 +198,12 @@ class Mod(Cog):
     @command(name="andre", aliases=["cageandre", "muteandre", "cage"], description="Mutes Andre.")
     @bot_has_permissions(manage_roles=True)
     # Once every 3 hours
-    @cooldown(1, 10800, BucketType.guild)
+    @cooldown(1, 10800, BucketType.user)
     async def mute(self, ctx):
         guild = ctx.guild
         andre = ctx.guild.get_member(600461101788037163)
         mutedRole = discord.utils.get(guild.roles, name="Muted")
+        endtime = datetime.now() + timedelta(minutes=5)
 
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
@@ -212,7 +213,7 @@ class Mod(Cog):
                                               read_messages=True)
 
         await andre.add_roles(mutedRole)
-        await ctx.send("Caged Andre - He'll be back in 5 minutes <:andreTears:963839778242043914>")
+        await ctx.send(f"Caged Andre - He'll be back at {endtime.strftime('%H:%M:%S')} <:andreTears:963839778242043914>")
 
         embed = Embed(title=f"Andre caged", colour=0xDD2222, timestamp=datetime.utcnow())
 

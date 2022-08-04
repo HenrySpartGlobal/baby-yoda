@@ -124,8 +124,7 @@ class Bot(BotBase):
 
         elif isinstance(exception, CommandOnCooldown):
             await context.send(
-                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after:,.2f} seconds",
-                delete_after=10)
+                f"Command on {str(exception.cooldown.type).split('.')[-1]} cool down. Try again in {exception.retry_after / 60:,.0f} minutes")
 
         elif hasattr(exception, "original"):
 
