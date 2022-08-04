@@ -4,7 +4,7 @@ from re import search
 from typing import Optional, List
 
 import discord
-from better_profanity import profanity
+# from better_profanity import profanity
 from discord import Embed, Member, Message
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import Cog, Greedy, cooldown, BucketType
@@ -222,26 +222,26 @@ class Mod(Cog):
         embed_uncage = Embed(title=f"Andre uncaged after 5 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
         await self.log_channel.send(embed=embed_uncage)
 
-    @command(name="profanity", aliases=["curse", "swears"])
-    @has_permissions(manage_guild=True)
-    async def add_profanity(self, ctx, *word):
-        with open("./data/profanity.txt", "a", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in word]))
-
-        profanity.load_censor_words_from_file("./data/profanity.txt")
-        await ctx.send("Word Added")
-
-    @command(name="delprofanity", aliases=["delcurse", "delswears"])
-    @has_permissions(manage_guild=True)
-    async def remove_profanity(self, ctx, *word):
-        with open("./data/profanity.txt", "r", encoding="utf-8") as f:
-            stored = [w.strip() for w in f.readlines()]
-
-        with open("./data/profanity.txt", "w", encoding="utf-8") as f:
-            f.write("".join([f"{w}\n" for w in stored if w not in word]))
-
-        profanity.load_censor_words_from_file("./data/profanity.txt")
-        await ctx.send("Removed Word")
+    # @command(name="profanity", aliases=["curse", "swears"])
+    # @has_permissions(manage_guild=True)
+    # async def add_profanity(self, ctx, *word):
+    #     with open("./data/profanity.txt", "a", encoding="utf-8") as f:
+    #         f.write("".join([f"{w}\n" for w in word]))
+    #
+    #     profanity.load_censor_words_from_file("./data/profanity.txt")
+    #     await ctx.send("Word Added")
+    #
+    # @command(name="delprofanity", aliases=["delcurse", "delswears"])
+    # @has_permissions(manage_guild=True)
+    # async def remove_profanity(self, ctx, *word):
+    #     with open("./data/profanity.txt", "r", encoding="utf-8") as f:
+    #         stored = [w.strip() for w in f.readlines()]
+    #
+    #     with open("./data/profanity.txt", "w", encoding="utf-8") as f:
+    #         f.write("".join([f"{w}\n" for w in stored if w not in word]))
+    #
+    #     profanity.load_censor_words_from_file("./data/profanity.txt")
+    #     await ctx.send("Removed Word")
 
     @Cog.listener()
     async def on_ready(self):
@@ -271,21 +271,13 @@ class Mod(Cog):
                     await self.unmute_members(message.guild, [message.author])
                 # await self.kick_members(message, [message.author], reason="Mention Spam") Kicks member on mentioning someone 3 times in 1 minute
 
-            current_prefix = await self.bot.get_prefix(message)
-            if isinstance(current_prefix, List):
-                current_prefix = current_prefix[2]
-            if not str(message.content).startswith(str(current_prefix)):
-                if profanity.contains_profanity(message.content):
-                    await message.delete()
-                    await message.channel.send("You can't use that word here.", delete_after=10)
+            elif message.channel.id in self.no_links and search(self.url_regex, message.content):
+                await message.delete()
+                await message.channel.send("No links allowed here.", delete_after=10)
 
-                elif message.channel.id in self.no_links and search(self.url_regex, message.content):
-                    await message.delete()
-                    await message.channel.send("No links allowed here.", delete_after=10)
-
-                elif message.channel.id in self.no_images and any([hasattr(a, "width") for a in message.attachments]):
-                    await message.delete()
-                    await message.channel.send("You can't send images here.")
+            elif message.channel.id in self.no_images and any([hasattr(a, "width") for a in message.attachments]):
+                await message.delete()
+                await message.channel.send("You can't send images here.")
 
 
 def setup(bot):
