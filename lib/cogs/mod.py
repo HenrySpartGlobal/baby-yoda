@@ -248,7 +248,7 @@ class Mod(Cog):
     async def on_ready(self):
         if not self.bot.ready:
             self.log_channel = self.bot.get_channel(760492361343565824)
-            self.mute_role = self.bot.guild.get_role(1004522116382724216)  # create a mute role
+            self.mute_role = self.bot.guild.get_role(1004809068298391702)  # create a mute role
             self.bot.cogs_ready.ready_up("mod")
 
     # anti spam / auto mod
