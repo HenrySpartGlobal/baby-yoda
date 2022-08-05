@@ -149,7 +149,7 @@ class Bot(BotBase):
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
 
-            await self.stdout.send("Baby Yoda is now Online! - I'm ready")
+            await self.stdout.send("Baby Yoda is now Online! - I'm ready!!")
             self.ready = True
             print("Bot ready")
 
