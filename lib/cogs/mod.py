@@ -219,7 +219,7 @@ class Mod(Cog):
 
         await self.log_channel.send(embed=embed)
         await sleep(300)
-        await andre.remove_roles(mutedRole)
+#         await andre.remove_roles(mutedRole)
         embed_uncage = Embed(title=f"Andre uncaged after 5 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
         await self.log_channel.send(embed=embed_uncage)
 
