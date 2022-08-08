@@ -140,13 +140,13 @@ jobs:
         command: |
           echo "[Unit]
           Description=${{ env.REPO_NAME }} Discord Bot
-          StartLimitIntervalSec=40                                                                                                                                                                                                                                                                                  
-          StartLimitBurst=3
           After=multi-user.target
           [Service]
           Type=simple
           ExecStart=/usr/bin/python3 /root/${{ env.REPO_NAME }}/launcher.py
           User=root
+          Restart=on-failure
+          RestartSec=30
           WorkingDirectory=/root/${{ env.REPO_NAME }}/
           Restart=on-failure
           [Install]
