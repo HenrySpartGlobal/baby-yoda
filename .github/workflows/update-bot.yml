@@ -90,3 +90,18 @@ jobs:
 
           # sftp args
           args: '-o ConnectTimeout=5'
+          
+              
+  restart-bot:
+    needs: [deploy-via-sftp, assign-aws-creds]
+    runs-on: ubuntu-latest
+    steps:
+    - id: creating-systemctl-service
+      uses: fifsky/ssh-action@master
+      with:
+        command: sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
+              
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
+        user: root
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+          

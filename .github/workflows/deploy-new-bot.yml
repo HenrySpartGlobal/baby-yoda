@@ -181,22 +181,3 @@ jobs:
           host: ${{needs.assign-aws-creds.outputs.mainIp}}
           user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-  create-systemctl-watcher:
-        needs: [create-systemctl-restart ,create-systemctl-service, add-bot-token,deploy-via-sftp, assign-aws-creds]
-        runs-on: ubuntu-latest
-        steps:
-        - id: creating-systemctl-watcher-service
-          uses: fifsky/ssh-action@master
-          with:
-            command: |
-              echo "[Path]
-              Unit=${{ env.REPO_NAME }}-watcher.service
-              PathChanged=/root/${{ env.REPO_NAME }}
-              [Install]
-              WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}-watcher.path
-              sudo systemctl enable ${{ env.REPO_NAME }}-watcher.path
-              sudo systemctl start ${{ env.REPO_NAME }}-watcher.path
-            host: ${{needs.assign-aws-creds.outputs.mainIp}}
-            user: root
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
