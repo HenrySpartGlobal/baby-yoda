@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ad7a63d-bfce-4c6f-88e2-4b59c3ce4835" name="Changes" comment="add didn't ask command">
+      <change afterPath="$PROJECT_DIR$/timezone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/bot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bot/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/cogs/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cogs/mod.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,22 +27,23 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2CIYAJ215h52YwN9RH4ShD5a7Gf" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="TF_FMT" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TF_FMT&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Henry/Documents/GitHub/inhouse_bot&quot;
+  }
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -101,7 +102,63 @@
       <option name="project" value="LOCAL" />
       <updated>1658508661758</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="update unmute command">
+      <created>1659646706445</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1659646706445</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update version">
+      <created>1659646753768</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1659646753768</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update display picture name">
+      <created>1659702792389</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1659702792389</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add didn't ask command">
+      <created>1659702821581</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1659702821581</updated>
+    </task>
+    <task id="LOCAL-00012" summary="testing reset">
+      <created>1659703654317</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1659703654317</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add didn't ask command">
+      <created>1659704412937</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1659704412937</updated>
+    </task>
+    <task id="LOCAL-00014" summary="update version">
+      <created>1659988918682</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1659988918682</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fix merge conflicts">
+      <created>1659989046195</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1659989046195</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -116,14 +173,21 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="add greet command" />
     <MESSAGE value="add dice command" />
     <MESSAGE value="add warm up message if bot is not ready" />
     <MESSAGE value="error handling and dice roll" />
     <MESSAGE value="interacting with some random api to get animal facts and images" />
     <MESSAGE value="edit" />
+    <MESSAGE value="update unmute command" />
+    <MESSAGE value="update display picture name" />
+    <MESSAGE value="testing reset" />
     <MESSAGE value="add didn't ask command" />
-    <option name="LAST_COMMIT_MESSAGE" value="add didn't ask command" />
+    <MESSAGE value="update version" />
+    <MESSAGE value="fix merge conflicts" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix merge conflicts" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

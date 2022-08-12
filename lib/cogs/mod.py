@@ -9,6 +9,7 @@ from discord import Embed, Member, Message
 from discord.ext.commands import CheckFailure
 from discord.ext.commands import Cog, Greedy, cooldown, BucketType
 from discord.ext.commands import command, has_permissions, bot_has_permissions
+import pytz
 
 from ..db import db
 
@@ -203,7 +204,10 @@ class Mod(Cog):
         guild = ctx.guild
         andre = ctx.guild.get_member(600461101788037163)
         mutedRole = discord.utils.get(guild.roles, name="Muted")
-        endtime = datetime.now() + timedelta(minutes=5)
+        uk_time = pytz.timezone("Europe/London")
+        eur_time = pytz.timezone("Europe/Amsterdam")
+        uk_endtime = datetime.now(uk_time) + timedelta(minutes=5)
+        eur_endtime = datetime.now(eur_time) + timedelta(minutes=5)
 
         if not mutedRole:
             mutedRole = await guild.create_role(name="Muted")
@@ -213,7 +217,7 @@ class Mod(Cog):
                                               read_messages=True)
 
         await andre.add_roles(mutedRole)
-        await ctx.send(f"Caged Andre - He'll be back at {endtime.strftime('%H:%M:%S')} <:andreTears:963839778242043914>")
+        await ctx.send(f"Caged Andre - He'll be back at 🇬🇧 {uk_endtime.strftime('%H:%M:%S')} OR 🇪🇺 {eur_endtime.strftime('%H:%M:%S')} <:andreTears:963839778242043914>")
 
         embed = Embed(title=f"Andre caged", colour=0xDD2222, timestamp=datetime.utcnow())
 
