@@ -37,7 +37,7 @@ class Reactions(Cog):
             self.bot.cogs_ready.ready_up("reactions")
 
     @command(name="createpoll", aliases=["poll", "makepoll"])
-    @has_permissions(manage_guild=True)
+    # @has_permissions(manage_guild=True)
     # +poll <length is seconds> <Poll title> <Options separated by spaces or merged together with "">
     # Example command
     # +poll 15 "How big is earth?" Big "very big" small medium "very large"
