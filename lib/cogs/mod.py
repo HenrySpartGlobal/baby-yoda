@@ -224,6 +224,37 @@ class Mod(Cog):
         await andre.remove_roles(mutedRole)
         embed_uncage = Embed(title=f"Andre uncaged after 5 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
         await self.log_channel.send(embed=embed_uncage)
+        
+    # For when Zac won't shut up about something he doesn't know much about    
+    @command(name="zac", aliases=["cagezac", "mutezac"], description="Mutes Zac.")
+    @bot_has_permissions(manage_roles=True)
+    # Once every 24 hours
+    @cooldown(1, 86400, BucketType.user)
+    async def mute(self, ctx):
+        guild = ctx.guild
+        zac = ctx.guild.get_member(203838859136466944)
+        mutedRole = discord.utils.get(guild.roles, name="Muted")
+        uk_time = pytz.timezone("Europe/London")
+        # 30 minute ban
+        uk_endtime = datetime.now(uk_time) + timedelta(minutes=30)
+
+        if not mutedRole:
+            mutedRole = await guild.create_role(name="Muted")
+
+            for channel in guild.channels:
+                await channel.set_permissions(mutedRole, speak=True, send_messages=False, read_message_history=True,
+                                              read_messages=True)
+
+        await zac.add_roles(mutedRole)
+        await ctx.send(f"Zac needs a nap - He'll be back at 🇬🇧 {uk_endtime.strftime('%H:%M:%S')}")
+
+        embed = Embed(title=f"Zac silenced", colour=0xDD2222, timestamp=datetime.utcnow())
+
+        await self.log_channel.send(embed=embed)
+        await sleep(300)
+        await zac.remove_roles(mutedRole)
+        embed_uncage = Embed(title=f"Zac awakened after 30 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
+        await self.log_channel.send(embed=embed_uncage)
 
     # @command(name="profanity", aliases=["curse", "swears"])
     # @has_permissions(manage_guild=True)
