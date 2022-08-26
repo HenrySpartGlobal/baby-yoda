@@ -251,7 +251,7 @@ class Mod(Cog):
         embed = Embed(title=f"Zac silenced", colour=0xDD2222, timestamp=datetime.utcnow())
 
         await self.log_channel.send(embed=embed)
-        await sleep(300)
+        await sleep(1800)
         await zac.remove_roles(mutedRole)
         embed_uncage = Embed(title=f"Zac awakened after 30 minutes", colour=0xDD2222, timestamp=datetime.utcnow())
         await self.log_channel.send(embed=embed_uncage)
