@@ -3,7 +3,7 @@ from random import choice
 from random import randint
 
 from aiohttp import request
-from discord import Embed
+from discord import Embed, Message
 from discord.ext.commands import Cog, BucketType
 from discord.ext.commands import command
 from discord.ext.commands import cooldown
@@ -119,6 +119,21 @@ class Fun(Cog):
         await aebe.send(embed=embed)
         await ctx.channel.send(f"Message sent to {aebe.display_name}", delete_after=120)
         # example !aebe "Question"
+
+    @command(name="emoji", aliases=["addemoji"], description="Make an emoji")
+    async def save(self, ctx, name: str):
+        try:
+            url = ctx.message.attachments[0].url
+        except IndexError:
+            print("Error: No attachment")
+            await ctx.send("No attachment")
+        else:
+            if url[0:26] == "https://cdn.discordapp.com":
+                await ctx.message.attachments[0].save('image.jpg')
+                with open('image.jpg', 'rb') as f:
+                    data = f.read()
+                await ctx.guild.create_custom_emoji(name=name, image=data)
+                await ctx.send("New Emoji added!")
 
     @Cog.listener()
     async def on_ready(self):
