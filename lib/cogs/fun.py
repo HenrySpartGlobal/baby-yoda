@@ -7,6 +7,9 @@ from discord import Embed, Message
 from discord.ext.commands import Cog, BucketType
 from discord.ext.commands import command
 from discord.ext.commands import cooldown
+from random_word import Wordnik
+
+wordnik_service = Wordnik()
 
 
 class Fun(Cog):
@@ -134,6 +137,40 @@ class Fun(Cog):
                     data = f.read()
                 await ctx.guild.create_custom_emoji(name=name, image=data)
                 await ctx.send("New Emoji added!")
+
+    @command(name="wordle")
+    async def wordle(self, ctx):
+        self.log_channel = self.bot.get_channel(1004520092484259961)
+        new_word = wordnik_service.get_random_word(
+            hasDictionaryDef="true",
+            minLength=5,
+            maxLength=5
+        ).lower()
+        await ctx.send("Thanks for starting a game of Wordle. Make a guess!")
+        await self.log_channel.send(f"The answer to the Wordle is {new_word}")
+
+        def check(m):
+            return m.channel == ctx.channel and m.author == ctx.author
+
+        grid = ""
+        while (guess := (await self.bot.wait_for('message', check=check)).content.lower()) != new_word:
+            line = ""
+            if len(guess) != 5:
+                await ctx.send("Bad guess, mister! Try again.")
+            else:
+                for expected, actual in zip(guess, new_word):
+                    if expected == actual:
+                        line += ":green_square:"
+                    elif expected in new_word:
+                        line += ":yellow_square:"
+                    else:
+                        line += ":black_large_square:"
+                grid += f"{line}\n"
+                await ctx.send(line)
+        grid += ":green_square:" * 5
+
+        await ctx.send(grid)
+        await ctx.send("gg ez")
 
     @Cog.listener()
     async def on_ready(self):
