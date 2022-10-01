@@ -146,7 +146,7 @@ class Fun(Cog):
             minLength=5,
             maxLength=5
         ).lower()
-        await ctx.send("Thanks for starting a game of Wordle. Make a guess!")
+        await ctx.send("Thanks for starting a game of Wordle. Start guessing <:annieCheeky:590263847923744788> ")
         await self.log_channel.send(f"The answer to the Wordle is {new_word}")
 
         def check(m):
@@ -156,7 +156,7 @@ class Fun(Cog):
         while (guess := (await self.bot.wait_for('message', check=check)).content.lower()) != new_word:
             line = ""
             if len(guess) != 5:
-                await ctx.send("Bad guess, mister! Try again.")
+                await ctx.send("That's not even 5 letters <:weird:698658941445472317>")
             else:
                 for expected, actual in zip(guess, new_word):
                     if expected == actual:
