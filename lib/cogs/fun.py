@@ -3,7 +3,7 @@ from random import choice
 from random import randint
 
 from aiohttp import request
-from discord import Embed, Message
+from discord import Embed, File, Color
 from discord.ext.commands import Cog, BucketType
 from discord.ext.commands import command
 from discord.ext.commands import cooldown
@@ -48,6 +48,52 @@ class Fun(Cog):
     async def echo_message(self, ctx, *, message):
         await ctx.message.delete()
         await ctx.send(message)
+
+    # rules
+    @command(name="rules", aliases=["rule"], description="List rules")
+    async def echo_message(self, ctx):
+        file = File("lib/images/InHouseQueue-rules.png", filename="InHouseQueue-rules.png")
+        embed = Embed(title="Server rules", color=Color.red())
+        embed.set_image(url="attachment://InHouseQueue-rules.png")
+        embed.add_field(name="**1. Be respectful**", value="You must respect all users, regardless of your liking towards them. Treat others the way you want to be treated.", inline=False)
+        embed.add_field(name="**2. No Inappropriate Language**", value="The use of profanity should be kept to a minimum. However, any derogatory language towards any user is prohibited.", inline=False)
+        embed.add_field(name="**3. No spamming**", value="Do not disrupt chat by spamming.", inline=False)
+        embed.add_field(name="**4. No pornographic/adult/other NSFW material**", value="This is a community server, NSFW content will not be tolerated.", inline=False)
+        embed.add_field(name="**5. No advertisements**", value="We do not tolerate any kind of advertisements, whether it be for other communities or streams. ", inline=False)
+        embed.add_field(name="**6. No offensive names and profile pictures**", value="You will be asked to change your name or picture if the staff deems them inappropriate.", inline=False)
+        embed.add_field(name="**7. Direct & Indirect Threats**", value="Threats to other users of DDoS, Death, DoX, abuse, and other malicious threats are absolutely prohibited and disallowed.", inline=True)
+        embed.add_field(name="**8. Follow the Discord Community Guidelines**", value="You can find them here: https://discordapp.com/guidelines", inline=False)
+        embed.add_field(name="\u200b", value="--------------------------------------------------------------------------", inline=True)
+        embed.add_field(name="Your presence in this server implies accepting these rules, including all further changes. These changes might be done at any time without notice, it is your responsibility to check for them.", value="\u200b", inline=False)
+        await ctx.send(embed=embed, file=file)
+
+    @command(name="use", aliases=["uses"], description="Basic Use")
+    async def echo_use(self, ctx):
+        file = File("lib/images/InHouseQueue-basic-use.png", filename="InHouseQueue-basic-use.png")
+        embed = Embed(title="How to Play", color=Color.red())
+        embed.set_image(url="attachment://InHouseQueue-basic-use.png")
+        embed.add_field(name="1. Visit one of the Queue Channels", value="Run `/start/` in <#1028006368101277726>", inline=False)
+        embed.add_field(name="2. Pick a role", value="Use the buttons to queue up for a role.", inline=False)
+        embed.add_field(name="3. Ready up!", value="Once there are 10 players you'll need to ready up - don't worry you will be tagged.", inline=False)
+        embed.add_field(name="4. Join the voice channel", value="A voice channel for your team is automatically created. Time to discuss picks and bans!", inline=False)
+        embed.add_field(name="5. Create the custom game", value="Players are responsible for creating the custom game and inviting players. Use the lobby text channel to exchange IGN's.", inline=False)
+        embed.add_field(name="6. Game over", value="Once the game is over, run `/win` in your specific lobby. This needs needs **6** votes to go through.", inline=False)
+        embed.add_field(name="6. Check the leaderboard", value="Your wins are tracked, try `/leaderboard` in <#1027184904372490240>.", inline=False)
+        embed.add_field(name="7. Why not use ProDraft?", value="http://prodraft.leagueoflegends.com/ - Is a great addition, provides a competitive vibe and ensures no champion swap madness!", inline=False)
+        await ctx.send(embed=embed, file=file)
+
+
+    @command(name="welcome", aliases=["welcoming"], description="Welcome")
+    async def echo_welcome(self, ctx):
+        file = File("lib/images/InHouseQueue-welcome.png", filename="InHouseQueue-welcome.png")
+        embed = Embed(title="Welcome to In House Queue!", color=Color.red())
+        embed.set_image(url="attachment://InHouseQueue-welcome.png")
+        embed.add_field(name="Inspired by LoL Champions Queue", value="We want to provide a similar experience to the Official LoL Champions queue. Champions queue is invite only for Pro / Academy players - so this is the next best thing ;)", inline=False)
+        embed.add_field(name="Take your game to the next level", value="Our server aims to provide a realistic replica of Champions queue; a Competitive Environment Pro players are using to hone their skills. You too can do the same here.", inline=False)
+        embed.add_field(name="Always try your best", value="We understand games can be intense, particularly competitve games. Please keep in mind to keep flame and toxicity to a minimum. Frustration is allowed, but toxicity will not be tolerated.", inline=False)
+        embed.add_field(name="Play, learn, repeat", value="Help each other learn and improve - every loss is a lesson.", inline=False)
+        embed.add_field(name="\u200b", value="**See you on the rift!**", inline=False)
+        await ctx.send(embed=embed, file=file)
 
     @command(name="ask", aliases=["asks", "whoasked", "asked", "asked?", "askers"],
              description="Send a random 'No one asked' meme")
