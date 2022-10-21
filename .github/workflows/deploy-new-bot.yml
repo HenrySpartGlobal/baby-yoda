@@ -85,7 +85,7 @@ jobs:
           echo '###### Installing psutil ######'
           pip3.10 install psutil
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
-        user: henry
+        user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   deploy-via-sftp:
@@ -97,7 +97,7 @@ jobs:
       - id: SFTPDeploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.1
         with:
-          username: henry
+          username: root
           server: ${{needs.assign-aws-creds.outputs.mainIp}}
           port: 22 # default is 22
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -127,7 +127,7 @@ jobs:
             echo ${{ env.BOT_TOKEN }} > token.0
             echo $?
           host: ${{needs.assign-aws-creds.outputs.mainIp}}
-          user: henry
+          user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   create-systemctl-service:
@@ -144,7 +144,7 @@ jobs:
           [Service]
           Type=simple
           ExecStart=/usr/bin/python3 /home/henry/${{ env.REPO_NAME }}/launcher.py
-          User=henry
+          User=root
           Restart=on-failure
           RestartSec=30
           WorkingDirectory=/home/henry/${{ env.REPO_NAME }}/
@@ -157,7 +157,7 @@ jobs:
           sudo systemctl start ${{ env.REPO_NAME }}.service
               
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
-        user: henry
+        user: root
         key: ${{ secrets.SSH_PRIVATE_KEY }}
 
   create-systemctl-restart:
@@ -179,5 +179,5 @@ jobs:
             sudo systemctl enable ${{ env.REPO_NAME }}-watcher.service
             sudo systemctl start ${{ env.REPO_NAME }}-watcher.service
           host: ${{needs.assign-aws-creds.outputs.mainIp}}
-          user: henry
+          user: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
