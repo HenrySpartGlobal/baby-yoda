@@ -65,6 +65,18 @@ jobs:
 
       - id: ipAddress
         run: echo "::set-output name=address::${{ steps.output.outputs.stdout }}"
+        
+  change-ownership:
+    needs: assign-aws-creds
+    runs-on: ubuntu-latest
+    steps:
+    - name: changing owner to henry
+      uses: fifsky/ssh-action@master
+      with:
+        command: sudo chown -R henry:henry ${{ github.workspace }}
+        host: ${{needs.assign-aws-creds.outputs.mainIp}}
+        user: henry
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
   
   # This workflow contains a single job called "SFTP"
   deploy-via-sftp:
