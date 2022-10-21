@@ -73,7 +73,7 @@ jobs:
     - name: changing owner to henry
       uses: fifsky/ssh-action@master
       with:
-        command: sudo chown -R henry:henry ${{ github.workspace }}
+        command: echo ${{ secrets.HENRY_PASSWORD }} | sudo chown -R henry:henry ${{ github.workspace }}
         host: ${{needs.assign-aws-creds.outputs.mainIp}}
         user: henry
         key: ${{ secrets.SSH_PRIVATE_KEY }}
