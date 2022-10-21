@@ -105,7 +105,7 @@ jobs:
           # will put all file under this path
           local_path: ./* # default is ./*
           # files will copy to under remote_path
-          remote_path: /root/${{ env.REPO_NAME }}/
+          remote_path: /home/henry/${{ env.REPO_NAME }}/
 
           # sftp args
           args: '-o ConnectTimeout=5'
@@ -143,15 +143,15 @@ jobs:
           After=multi-user.target
           [Service]
           Type=simple
-          ExecStart=/usr/bin/python3 /root/${{ env.REPO_NAME }}/launcher.py
+          ExecStart=/usr/bin/python3 /home/henry/${{ env.REPO_NAME }}/launcher.py
           User=root
           Restart=on-failure
           RestartSec=30
-          WorkingDirectory=/root/${{ env.REPO_NAME }}/
+          WorkingDirectory=/home/henry/${{ env.REPO_NAME }}/
           Restart=on-failure
           [Install]
           WantedBy=multi-user.target" >> /etc/systemd/system/${{ env.REPO_NAME }}.service
-          chmod +x /root/${{ env.REPO_NAME }}/launcher.py
+          chmod +x /home/henry/${{ env.REPO_NAME }}/launcher.py
           sudo systemctl enable ${{ env.REPO_NAME }}.service
           sudo systemctl daemon-reload
           sudo systemctl start ${{ env.REPO_NAME }}.service
